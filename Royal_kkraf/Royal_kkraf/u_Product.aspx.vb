@@ -88,7 +88,7 @@ Public Class u_Product
     Function LoadGridTitle(ByVal SortField As String, ByVal SQuery As String) As Boolean
         Dim dT As DataTable
         Senarai.CurrentPageIndex = 0
-        Query = "Select * From infTitles Order by Title"
+        Query = "Select * From infTitles " & SQuery & " Order by Title"
         dT = Clss.ExecuteDataTable(Query, "Order")
         If dT Is Nothing Then
             Result = False
@@ -306,4 +306,10 @@ Public Class u_Product
         End If
 
     End Function
+
+    Protected Sub iBtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles iBtnSearch.Click
+        Dim Cond As String
+        Cond = "WHERE Title like '%" & txtItemSearch.Text & "%'"
+        LoadGridTitle("", Cond)
+    End Sub
 End Class

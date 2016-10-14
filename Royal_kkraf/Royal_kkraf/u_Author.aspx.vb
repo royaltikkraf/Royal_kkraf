@@ -84,7 +84,7 @@ Public Class u_Author
     Function LoadGridAuthor(ByVal SortField As String, ByVal SQuery As String) As Boolean
         Dim dT As DataTable
         Senarai.CurrentPageIndex = 0
-        Query = "Select * From infAuthor Order by Name ASC"
+        Query = "Select * From infAuthor " & SQuery & " Order by Name ASC"
         dT = Clss.ExecuteDataTable(Query, "Senarai")
         If dT Is Nothing Then
             lblErrMsg.Text = String.Format("ERROR : Bind Data ({0})!", Clss.oErrMsg)
@@ -288,4 +288,10 @@ Public Class u_Author
         End If
 
     End Function
+
+    Protected Sub iBtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles iBtnSearch.Click
+        Dim Cond As String
+        Cond = "WHERE Name like '%" & txtAuthorSearch.Text & "%' or Nickname like '%" & txtAuthorSearch.Text & "%' "
+        LoadGridAuthor("", Cond)
+    End Sub
 End Class

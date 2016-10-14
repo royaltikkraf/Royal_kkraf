@@ -14,7 +14,7 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -54,16 +54,15 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
-                         <li class="dropdown">
+                        <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" runat="server" href="~/ConnDBase">Data & Function<span class="caret"></span></a>
-                            <ul class="dropdown-menu">                                
+                            <ul class="dropdown-menu">
                                 <li><a runat="server" href="~/u_Author">Author</a></li>
                                 <li><a runat="server" href="~/u_Contract">Contract</a></li>
-                                <li><a runat="server" href="#">Customer</a></li>
                                 <li><a runat="server" href="~/u_Product">Item</a></li>
                                 <li><a href="#">Royalty</a></li>
-                                <li><a runat="server" href="~/u_Sales">Sales</a></li>                                
-                                
+                                <li><a runat="server" href="~/u_Sales">Sales</a></li>
+
                             </ul>
                         </li>
                         <li><a runat="server" href="~/About">About</a></li>

@@ -50,6 +50,24 @@ Partial Public Class u_Author
     Protected WithEvents lblErrMsg As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''txtAuthorSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAuthorSearch As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''iBtnSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents iBtnSearch As Global.System.Web.UI.WebControls.ImageButton
+
+    '''<summary>
     '''Senarai control.
     '''</summary>
     '''<remarks>

@@ -7,7 +7,7 @@
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
         <br />
-        <asp:TextBox ID="txtSalesSearch" runat="server" BackColor="#FFFF99" ToolTip="SEARCH TITLE" Width="250px"></asp:TextBox>
+        <asp:TextBox ID="txtSalesSearch" runat="server" BackColor="#FFFF99" ToolTip="SEARCH CUSTOMER NAME" Width="250px"></asp:TextBox>
         <asp:ImageButton ID="iBtnSearch" runat="server" ImageAlign="Top" ImageUrl="~/image/search.png" Width="28px" />
         <asp:DataGrid ID="Senarai" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="Black" GridLines="Horizontal" HeaderStyle-BackColor="Blue" HeaderStyle-ForeColor="White" PagerStyle-Visible="True" Style="border-right: black thin solid; border-top: black thin solid; border-left: black thin solid; border-bottom: black thin solid" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" HorizontalAlign="Justify">
             <Columns>

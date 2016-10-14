@@ -7,10 +7,13 @@
         <asp:Label ID="lblStaffID" runat="server"></asp:Label>
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
+        <br />
+        <asp:TextBox ID="txtItemSearch" runat="server" BackColor="#FFFF99" ToolTip="SEARCH TITLE" Width="250px"></asp:TextBox>
+        <asp:ImageButton ID="iBtnSearch" runat="server" ImageAlign="Top" ImageUrl="~/image/search.png" Width="28px" />
         <asp:DataGrid ID="Senarai" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="Black" GridLines="Horizontal" HeaderStyle-BackColor="Blue" HeaderStyle-ForeColor="White" PagerStyle-Visible="True" Style="border-right: black thin solid; border-top: black thin solid; border-left: black thin solid; border-bottom: black thin solid" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" HorizontalAlign="Justify">
             <Columns>
                 <asp:ButtonColumn CommandName="Select" Text="&gt;&gt;" ButtonType="PushButton"></asp:ButtonColumn>
-                <asp:BoundColumn DataField="id" HeaderText="ID" SortExpression="id"></asp:BoundColumn>
+                <asp:BoundColumn DataField="id" HeaderText="ID" SortExpression="id" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="ItemCode" HeaderText="Item Code" SortExpression="ItemCode"></asp:BoundColumn>
                 <asp:BoundColumn DataField="Title" HeaderText="Title" SortExpression="Title"></asp:BoundColumn>
                 <asp:BoundColumn DataField="Catagory1" HeaderText="Category" SortExpression="Catagory1"></asp:BoundColumn>
