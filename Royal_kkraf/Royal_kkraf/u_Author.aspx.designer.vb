@@ -293,22 +293,22 @@ Partial Public Class u_Author
     Protected WithEvents Status As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
-    '''txtBankNo control.
+    '''txtNamePayTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBankNo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNamePayTo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''RequiredFieldValidator6 control.
+    '''txtBankNoPayTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RequiredFieldValidator6 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+    Protected WithEvents txtBankNoPayTo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''ddlBankName control.
@@ -345,6 +345,33 @@ Partial Public Class u_Author
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PaymentType As Global.System.Web.UI.WebControls.SqlDataSource
+
+    '''<summary>
+    '''btnAddPayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddPayTo As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''gvPayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents gvPayTo As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''PayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents PayTo As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
     '''ddlAuthorType control.

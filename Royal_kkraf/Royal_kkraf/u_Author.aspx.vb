@@ -18,6 +18,7 @@ Public Class u_Author
             ddlPaymentType.DataBind()
             ddlBankName.DataBind()
             ddlAuthorType.DataBind()
+            gvPayTo.DataBind()
             If SortExp.Text = "" Then
                 LoadGridAuthor("", "")
             Else
@@ -150,9 +151,6 @@ Public Class u_Author
             txtFacebook.Text = Clss.oFacebook
             txtTwitter.Text = Clss.oTwitter
             ddlStatus.SelectedValue = Clss.oStatus
-            txtBankNo.Text = Clss.oBankNo
-            ddlBankName.SelectedValue = Clss.oBankName
-            ddlPaymentType.SelectedValue = Clss.oPaymentType
             ddlAuthorType.SelectedValue = Clss.oAuthorType
             Result = True
         Else
@@ -184,7 +182,7 @@ Public Class u_Author
         Dim SQLQuery As String
         SQLQuery = "INSERT INTO infAuthor (name, nickname, IC, HPhone, fax, address_mail, address_Permanent, address_email, DateJoin, website, facebook, twitter, Status, BankNo, BankName, PaymentType, AuthorType) VALUES ('" & _
             TentukanAksaraCalit(txtName.Text) & "', '" & TentukanAksaraCalit(txtNickname.Text) & "', '" & TentukanAksaraCalit(txtIC.Text) & "', '" & TentukanAksaraCalit(txtHPhone.Text) & "', '" & TentukanAksaraCalit(txtFax.Text) & "', '" & TentukanAksaraCalit(txtAddMailing.Text) & "', '" & TentukanAksaraCalit(txtAddPermanent.Text) & "', '" & _
-            TentukanAksaraCalit(txtEmail.Text) & "', CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), '" & TentukanAksaraCalit(txtWebsite.Text) & "', '" & TentukanAksaraCalit(txtFacebook.Text) & "', '" & TentukanAksaraCalit(txtTwitter.Text) & "', '" & ddlStatus.SelectedValue & "', '" & TentukanAksaraCalit(txtBankNo.Text) & "', '" & _
+            TentukanAksaraCalit(txtEmail.Text) & "', CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), '" & TentukanAksaraCalit(txtWebsite.Text) & "', '" & TentukanAksaraCalit(txtFacebook.Text) & "', '" & TentukanAksaraCalit(txtTwitter.Text) & "', '" & ddlStatus.SelectedValue & "', '" & TentukanAksaraCalit(txtBankNoPayTo.Text) & "', '" & _
             ddlBankName.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "', '" & ddlAuthorType.SelectedValue & "')"
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = True Then
@@ -215,7 +213,7 @@ Public Class u_Author
         Dim SQLQuery As String
         SQLQuery = "UPDATE infAuthor SET name = '" & TentukanAksaraCalit(txtName.Text) & "', nickname = '" & TentukanAksaraCalit(txtNickname.Text) & "', IC = '" & TentukanAksaraCalit(txtIC.Text) & "', HPhone = '" & TentukanAksaraCalit(txtHPhone.Text) & "', fax = '" & TentukanAksaraCalit(txtFax.Text) & "', address_mail = '" & _
             TentukanAksaraCalit(txtAddMailing.Text) & "', address_Permanent = '" & TentukanAksaraCalit(txtAddPermanent.Text) & "', address_email = '" & TentukanAksaraCalit(txtEmail.Text) & "', DateJoin = CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), website = '" & TentukanAksaraCalit(txtWebsite.Text) & "', facebook = '" & _
-            TentukanAksaraCalit(txtFacebook.Text) & "', twitter = '" & TentukanAksaraCalit(txtTwitter.Text) & "', Status = '" & ddlStatus.SelectedValue & "', BankNo = '" & TentukanAksaraCalit(txtBankNo.Text) & "', BankName = '" & ddlBankName.SelectedValue & "', PaymentType = '" & _
+            TentukanAksaraCalit(txtFacebook.Text) & "', twitter = '" & TentukanAksaraCalit(txtTwitter.Text) & "', Status = '" & ddlStatus.SelectedValue & "', BankNo = '" & TentukanAksaraCalit(txtBankNoPayTo.Text) & "', BankName = '" & ddlBankName.SelectedValue & "', PaymentType = '" & _
             ddlPaymentType.SelectedValue & "', AuthorType = '" & ddlAuthorType.SelectedValue & "' WHERE (id = " & lblID.Text & ")"
 
         Result = Clss.ExecuteNonQuery(SQLQuery)
@@ -252,7 +250,7 @@ Public Class u_Author
         txtFacebook.Text = ""
         txtTwitter.Text = ""
         ddlStatus.DataBind()
-        txtBankNo.Text = ""
+        txtBankNoPayTo.Text = ""
         ddlBankName.DataBind()
         ddlPaymentType.DataBind()
         ddlAuthorType.DataBind()
@@ -293,5 +291,22 @@ Public Class u_Author
         Dim Cond As String
         Cond = "WHERE Name like '%" & txtAuthorSearch.Text & "%' or Nickname like '%" & txtAuthorSearch.Text & "%' "
         LoadGridAuthor("", Cond)
+    End Sub
+
+    Protected Sub btnAddPayTo_Click(sender As Object, e As EventArgs) Handles btnAddPayTo.Click
+        Dim SQLQuery As String
+        SQLQuery = "INSERT INTO infAuthorPayTo(AuthorIC, PayTo, BankNo, BankName, PaymentType)Values('" & _
+            txtIC.Text & "', '" & txtNamePayTo.Text & "', '" & txtBankNoPayTo.Text & "', '" & ddlBankName.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "')"
+        Result = Clss.ExecuteNonQuery(SQLQuery)
+        If Result = True Then
+            ShowPopUpMsg("Succes : INSERT Data")
+            txtNamePayTo.Text = ""
+            txtBankNoPayTo.Text = ""
+            ddlBankName.DataBind()
+            ddlPaymentType.DataBind()
+            gvPayTo.DataBind()
+        Else
+            ShowPopUpMsg("Error : INSERT Data " & Clss.oErrMsg & "")
+        End If
     End Sub
 End Class

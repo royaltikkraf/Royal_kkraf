@@ -2,7 +2,11 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
+        eRoyalties : Authors
+    </div>
     <asp:Panel ID="PanelGrid" runat="server">
+
         <asp:Label ID="lblStaffID" runat="server"></asp:Label>
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
@@ -136,29 +140,67 @@
                 </td>
             </tr>
             <tr>
-                <td style="vertical-align: top; text-align: left">Bank No</td>
-                <td style="vertical-align: top; text-align: left">:</td>
+                <td style="vertical-align: top; text-align: left">&nbsp;</td>
+                <td style="vertical-align: top; text-align: left">&nbsp;</td>
                 <td>
-                    <asp:TextBox ID="txtBankNo" runat="server" Width="400px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtBankNo" ErrorMessage="Bank No" ForeColor="Red">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top; text-align: left">Bank Name</td>
-                <td style="vertical-align: top; text-align: left">:</td>
-                <td>
-                    <asp:DropDownList ID="ddlBankName" runat="server" DataSourceID="Bank" DataTextField="Desc" DataValueField="Name">
-                    </asp:DropDownList>
-                    <asp:SqlDataSource ID="Bank" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfBankName] ORDER BY [Desc]"></asp:SqlDataSource>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top; text-align: left">Payment type</td>
-                <td style="vertical-align: top; text-align: left">:</td>
-                <td>
-                    <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="Desc" DataValueField="Name">
-                    </asp:DropDownList>
-                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfPaymentType] ORDER BY [Desc]"></asp:SqlDataSource>
+                    <table style="background-color: #CCCCCC;">
+                        <tr>
+                            <td style="vertical-align: top; text-align: left">Name</td>
+                            <td style="vertical-align: top; text-align: left">
+                                <asp:TextBox ID="txtNamePayTo" runat="server" Width="250px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: left">Bank No</td>
+                            <td style="vertical-align: top; text-align: left">
+                                <asp:TextBox ID="txtBankNoPayTo" runat="server" Width="250px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: left">Bank Name</td>
+                            <td style="vertical-align: top; text-align: left">
+                                <asp:DropDownList ID="ddlBankName" runat="server" DataSourceID="Bank" DataTextField="Desc" DataValueField="Name">
+                                </asp:DropDownList>
+                                <asp:SqlDataSource ID="Bank" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfBankName] ORDER BY [Desc]"></asp:SqlDataSource>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; text-align: left">Payment Type</td>
+                            <td style="vertical-align: top; text-align: left">
+                                <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="Desc" DataValueField="Name">
+                                </asp:DropDownList>
+                                <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfPaymentType] ORDER BY [Desc]"></asp:SqlDataSource>
+                                <asp:Button ID="btnAddPayTo" runat="server" Text="+" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="vertical-align: top; text-align: left">
+                                <asp:GridView ID="gvPayTo" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" DataSourceID="PayTo" ForeColor="Black" GridLines="None">
+                                    <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                                    <Columns>
+                                        <asp:BoundField DataField="PayTo" HeaderText="Acc. Name" SortExpression="PayTo" />
+                                        <asp:BoundField DataField="AuthorIC" HeaderText="NRIC" SortExpression="AuthorIC" Visible="False" />
+                                        <asp:BoundField DataField="BankNo" HeaderText="Acc No" SortExpression="BankNo" />
+                                        <asp:BoundField DataField="BankName" HeaderText="Bank" SortExpression="BankName" />
+                                        <asp:BoundField DataField="PaymentType" HeaderText="Type" SortExpression="PaymentType" />
+                                    </Columns>
+                                    <FooterStyle BackColor="Tan" />
+                                    <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                                    <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                                    <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                                    <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                                    <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                                    <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="PayTo" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT   [PayTo], [AuthorIC], [BankNo], [BankName], [PaymentType] FROM [infAuthorPayTo] WHERE ([AuthorIC] = @AuthorIC) ORDER BY [PayTo]">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="txtIC" Name="AuthorIC" PropertyName="Text" Type="String" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>

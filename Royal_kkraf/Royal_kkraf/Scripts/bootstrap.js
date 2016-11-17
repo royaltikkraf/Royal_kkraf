@@ -15,7 +15,7 @@
 
 /**
 * bootstrap.js v3.0.0 by @fat and @mdo
-* Copyright 2013 Twitter Inc.
+* Copyright 2013 Twitter Inc.navbar navbar-inverse navbar-fixed-top
 * http://www.apache.org/licenses/LICENSE-2.0
 */
 if (!jQuery) { throw new Error("Bootstrap requires jQuery") }

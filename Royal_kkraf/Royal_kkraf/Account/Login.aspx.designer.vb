@@ -68,15 +68,6 @@ Partial Public Class Login
     Protected WithEvents RegisterHyperLink As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''ForgotPasswordHyperLink control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ForgotPasswordHyperLink As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
     '''OpenAuthLogin control.
     '''</summary>
     '''<remarks>

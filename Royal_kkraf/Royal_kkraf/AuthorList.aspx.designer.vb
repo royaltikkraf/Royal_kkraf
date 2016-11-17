@@ -11,86 +11,95 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class u_Contract
+Partial Public Class AuthorList
 
     '''<summary>
-    '''PanelGrid control.
+    '''form1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PanelGrid As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''SortExp control.
+    '''ddlcari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents SortExp As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlcari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblErrMsg control.
+    '''txcari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblErrMsg As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txcari As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtTitleSearch control.
+    '''Button1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTitleSearch As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''iBtnSearch control.
+    '''Button2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents iBtnSearch As Global.System.Web.UI.WebControls.ImageButton
+    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Senarai control.
+    '''GridView1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Senarai As Global.System.Web.UI.WebControls.DataGrid
+    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''btnCreate control.
+    '''SearchAuthor control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCreate As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents SearchAuthor As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
-    '''btnEdit control.
+    '''hfIC control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents hfIC As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''hfCode control.
+    '''hfName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hfCode As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents hfName As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hfPayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfPayTo As Global.System.Web.UI.WebControls.HiddenField
 End Class

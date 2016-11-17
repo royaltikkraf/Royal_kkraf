@@ -188,6 +188,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="AuthorList.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -237,6 +238,7 @@
     <Content Include="Global.asax" />
     <Content Include="u_Author.aspx" />
     <Content Include="u_Contract.aspx" />
+    <Content Include="u_ContractNewUpdate.aspx" />
     <Content Include="u_Product.aspx" />
     <Content Include="u_Sales.aspx" />
     <Content Include="Web.config" />
@@ -314,6 +316,7 @@
       <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="AddUpdate.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\IdentityConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
@@ -325,6 +328,13 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="App_Start\Startup.Auth.vb" />
+    <Compile Include="AuthorList.aspx.designer.vb">
+      <DependentUpon>AuthorList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorList.aspx.vb">
+      <DependentUpon>AuthorList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Clss.vb" />
     <Compile Include="Contact.aspx.designer.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -383,6 +393,13 @@
     </Compile>
     <Compile Include="u_Contract.aspx.vb">
       <DependentUpon>u_Contract.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="u_ContractNewUpdate.aspx.designer.vb">
+      <DependentUpon>u_ContractNewUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="u_ContractNewUpdate.aspx.vb">
+      <DependentUpon>u_ContractNewUpdate.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="u_Product.aspx.designer.vb">
@@ -454,6 +471,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

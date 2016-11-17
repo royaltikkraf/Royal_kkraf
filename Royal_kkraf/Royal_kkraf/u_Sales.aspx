@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="Sales" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Sales.aspx.vb" Inherits="Royal_kkraf.u_Sales" %>
 
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
+        eRoyalties : Sales
+    </div>
     <asp:Panel ID="PanelGrid" runat="server">
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
@@ -113,7 +116,7 @@
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
                     <asp:TextBox ID="txtRetailPrice" runat="server" Width="80px"></asp:TextBox>
-                    
+
                 </td>
             </tr>
             <tr>

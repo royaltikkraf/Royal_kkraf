@@ -3,7 +3,11 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
+        eRoyalties : Books
+    </div>
     <asp:Panel ID="PanelGrid" runat="server">
+
         <asp:Label ID="lblStaffID" runat="server"></asp:Label>
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
@@ -66,8 +70,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="vertical-align: top; text-align: left; ">Sub Category</td>
-                <td style="vertical-align: top; text-align: center; ">:</td>
+                <td style="vertical-align: top; text-align: left;">Sub Category</td>
+                <td style="vertical-align: top; text-align: center;">:</td>
                 <td style="text-align: left; vertical-align: top;">
                     <asp:DropDownList ID="ddlSubCategory" runat="server" DataSourceID="SubCategory" DataTextField="SubCatDesc" DataValueField="SubCategory">
                     </asp:DropDownList>

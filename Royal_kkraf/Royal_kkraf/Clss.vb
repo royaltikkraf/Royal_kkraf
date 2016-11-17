@@ -656,7 +656,7 @@ Public Class Clss
             ErrMsg = ex.Message
             result = False
         End Try
-        dr.Close()
+        'dr.Close()
         Return result
     End Function
 End Class
