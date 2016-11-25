@@ -50,8 +50,13 @@ Public Class AddUpdate
                 End If
             End If
 
+            If checkexist(pDocNo, "pdocno") Then
+                RetMsg = "Contract No Already Exist"
+                Return False
+            End If
+
             If type = "Create" Then
-                SQLQuery = "INSERT INTO infContract(ISBN, DateStart, DateEnd, DateContract) Values ('" & _
+                SQLQuery = "INSERT INTO infContract(ContractNo, ISBN, DateStart, DateEnd, DateContract) Values ('" & pDocNo & "','" & _
                     ISBN & "', Convert(Datetime,'" & StartDate & "',103), Convert(Datetime,'" & EndDate & "',103), Convert(Datetime,'" & ContractDate & "',103))"
             ElseIf type = "Edit" Then
                 SQLQuery = ""
@@ -77,17 +82,17 @@ Public Class AddUpdate
                     eBook = row.Item("eBook")
                     Advance = row.Item("Advance")
 
-                    SQLQuery = "INSERT INTO InfTransAuthor(AuthorName, IC, ISBN, Type, Pecentage, PayTo) VALUES ('" & _
+                    SQLQuery = "INSERT INTO InfTransAuthor(ContractNo, AuthorName, IC, ISBN, Type, Pecentage, PayTo) VALUES ('" & pDocNo & "','" & _
                         Name & "', '" & IC & "', '" & ISBN & "', '" & TypeP & "', " & Pecentage & ", '" & PayTo & "')"
                     Comm.CommandText = SQLQuery
                     Comm.ExecuteNonQuery()
                 End If
             Next
 
-            'SQLQuery = "update ConfDocControl set Description='" & currno & "' where SetupName='DOCNO' and itemname='" & pDocType & "'"
-            'Comm.CommandText = SQLQuery
-            'Comm.ExecuteNonQuery()
-            'RetMsg = "Record Insert Successfully"
+            SQLQuery = "update ConfDocControl set Description='" & currno & "' where SetupName='DOCNO' and itemname='" & pDocType & "'"
+            Comm.CommandText = SQLQuery
+            Comm.ExecuteNonQuery()
+            RetMsg = "Record Insert Successfully"
             Trans.Commit()
 
             Return True
@@ -106,6 +111,12 @@ Public Class AddUpdate
             Return False
         End Try
 
+    End Function
+
+    Function loaddetail(ByVal docno As String) As DataTable
+        If getresult("select * from InfTransAuthor where id=" & docno & "") Then
+            Return getresultdata
+        End If
     End Function
 
     Function getresult(ByVal sql As String) As Boolean
@@ -181,6 +192,35 @@ Public Class AddUpdate
         Catch ex As Exception
             Return False
         End Try
+    End Function
+
+    Function checkexist(ByVal nil As String, ByVal jenis As String) As Boolean
+        Dim ret As Boolean
+
+        Try
+            Select Case jenis
+                Case "pdocno"
+                    SQLQuery = "select ContractNo from infContract where ContractNo='" & nil & "'"
+            End Select
+            Comm = New SqlCommand(SQLQuery, Conn)
+            If conn.State = ConnectionState.Closed Then conn.Open()
+            dr = comm.ExecuteReader
+            If dr.Read Then
+                ret = True
+            Else
+                ret = False
+            End If
+            dr.Close()
+            comm.Dispose()
+            Return ret
+        Catch ex As Exception
+            dr.Close()
+            comm.Dispose()
+            RetMsg = ex.Message
+            Return False
+        End Try
+
+
     End Function
 
     Function checktablelocation(ByVal dt As DataTable) As Boolean

@@ -18,19 +18,18 @@ Public Class u_Contract
     Dim Query As String
     Dim Clss As New Clss
     Dim Result As Boolean
+    Dim Filter As String
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
         If Not Page.IsPostBack Then
-            'ddlAuthor.DataBind()
-
             If SortExp.Text = "" Then
                 LoadGridContract("", "")
             Else
                 LoadGridContract(SortExp.Text, "")
             End If
-            'SetInitialRow()
+
         End If
     End Sub
 
@@ -56,7 +55,7 @@ Public Class u_Contract
         Dim Code As String
         Dim ISBN As String
         Code = Senarai.SelectedItem.Cells(1).Text
-        ISBN = Senarai.SelectedItem.Cells(3).Text
+        ISBN = Senarai.SelectedItem.Cells(4).Text
         EditClick(Code, ISBN)
     End Sub
 
@@ -126,5 +125,10 @@ Public Class u_Contract
 
     Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
         btnCreate.Attributes.Add("onclick", "window.open('u_ContractNewUpdate.aspx', 'calendar_window','toolbars=no','location=no','menubar=no','width=800','height=350','resizable=no','top=200','left=250');return false;")
+    End Sub
+
+    Protected Sub iBtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles iBtnSearch.Click
+        Filter = "WHERE Title like '%" & txtTitleSearch.Text & "%'"
+        LoadGridContract("", Filter)
     End Sub
 End Class

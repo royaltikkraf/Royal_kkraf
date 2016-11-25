@@ -7,12 +7,16 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
-            FormView1.ChangeMode(FormViewMode.Insert)
+
             If Request.QueryString("ope") = "Edit" Then
+                FormView1.ChangeMode(FormViewMode.Edit)
+                SetInitialRow()
+                ViewState("CurrentTable") = ClsAddUpdate.loaddetail(Request.QueryString("docno"))
+                SetEditData()
                 btnAddAuthor.Visible = False
                 btnSave.Visible = False
-                FormView1.ChangeMode(FormViewMode.Edit)
             Else
+                FormView1.ChangeMode(FormViewMode.Insert)
                 btnUpdate.Visible = False
                 btnDelete.Visible = False
                 SetInitialRow()
@@ -47,6 +51,43 @@
 
         gdAuthor.DataSource = dt
         gdAuthor.DataBind()
+    End Sub
+
+    Private Sub SetEditData()
+        Dim rowIndex As Integer = 0
+        If ViewState("CurrentTable") IsNot Nothing Then
+            Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
+            gdAuthor.DataSource = dt
+            gdAuthor.DataBind()
+            If dt.Rows.Count > 0 Then
+
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("Name"), TextBox)
+                    Dim box2 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(1).FindControl("IC"), TextBox)
+                    Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
+                    Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
+                    Dim box5 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("PayTo"), TextBox)
+                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Book"), TextBox)
+                    Dim box7 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("eBook"), TextBox)
+                    Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
+
+                    box1.Text = dt.Rows(i)("Name").ToString()
+                    box2.Text = dt.Rows(i)("IC").ToString()
+                    box3.Text = dt.Rows(i)("Type").ToString()
+                    box4.Text = dt.Rows(i)("Pecentage").ToString()
+                    box5.Text = dt.Rows(i)("PayTo").ToString()
+                    box6.Text = dt.Rows(i)("Book").ToString()
+                    box7.Text = dt.Rows(i)("eBook").ToString()
+                    box8.Text = dt.Rows(i)("Advance").ToString()
+
+                    rowIndex += 1
+                Next
+            End If
+            '  dtCurrentTable.Rows.Add(drCurrentRow)
+            '  ViewState("CurrentTable") = dtCurrentTable
+
+
+        End If
     End Sub
 
     Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
@@ -215,7 +256,6 @@
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-
 
         Dim ISBN As DropDownList
         Dim DateStart As TextBox

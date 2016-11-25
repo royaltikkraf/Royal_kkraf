@@ -57,10 +57,10 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" runat="server" href="~/ConnDBase">Data & Function<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a runat="server" href="~/u_Author">Author</a></li>
+                                <li><a runat="server" href="~/u_Author">Author/Agency/Benefeciary</a></li>
                                 <li><a runat="server" href="~/u_Contract">Contract</a></li>
                                 <li><a runat="server" href="~/u_Product">Item</a></li>
-                                <li><a href="#">Royalty</a></li>
+                                <li><a runat="server" href="~/u_Payment">Other Payment</a></li>
                                 <li><a runat="server" href="~/u_Sales">Sales</a></li>
 
                             </ul>

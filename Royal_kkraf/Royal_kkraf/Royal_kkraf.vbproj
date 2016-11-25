@@ -239,6 +239,8 @@
     <Content Include="u_Author.aspx" />
     <Content Include="u_Contract.aspx" />
     <Content Include="u_ContractNewUpdate.aspx" />
+    <Content Include="u_Payment.aspx" />
+    <Content Include="u_PaymentNewUpdate.aspx" />
     <Content Include="u_Product.aspx" />
     <Content Include="u_Sales.aspx" />
     <Content Include="Web.config" />
@@ -400,6 +402,20 @@
     </Compile>
     <Compile Include="u_ContractNewUpdate.aspx.vb">
       <DependentUpon>u_ContractNewUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="u_Payment.aspx.designer.vb">
+      <DependentUpon>u_Payment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="u_Payment.aspx.vb">
+      <DependentUpon>u_Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="u_PaymentNewUpdate.aspx.designer.vb">
+      <DependentUpon>u_PaymentNewUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="u_PaymentNewUpdate.aspx.vb">
+      <DependentUpon>u_PaymentNewUpdate.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="u_Product.aspx.designer.vb">

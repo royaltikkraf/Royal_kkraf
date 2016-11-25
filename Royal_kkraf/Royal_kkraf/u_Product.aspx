@@ -75,12 +75,12 @@
                 <td style="text-align: left; vertical-align: top;">
                     <asp:DropDownList ID="ddlSubCategory" runat="server" DataSourceID="SubCategory" DataTextField="SubCatDesc" DataValueField="SubCategory">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SubCategory" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [SubCategory], [SubCatDesc] FROM [ConfCategory] WHERE ([Category] = @Category) ORDER BY [SubCatDesc]">
+                    <asp:SqlDataSource ID="SubCategory" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [SubCategory], [SubCatDesc] FROM [ConfCategory] WHERE ([Category] = @Category) AND Div = 1 ORDER BY [SubCatDesc]">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="ddlCategory" Name="Category" PropertyName="SelectedValue" Type="String" />
                         </SelectParameters>
                     </asp:SqlDataSource>
-                    <asp:SqlDataSource ID="Category" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [Category], [CatDesc] FROM [ConfCategory] ORDER BY [CatDesc]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="Category" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [Category], [CatDesc] FROM [ConfCategory] WHERE Div=1 ORDER BY [CatDesc]"></asp:SqlDataSource>
                 </td>
             </tr>
             <tr>

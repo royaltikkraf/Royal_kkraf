@@ -4,14 +4,19 @@ Imports System.Data.SqlClient
 
 Public Class Clss
 
-    Dim sqlcomm As New SqlCommand
+    Dim ConnString As String = ConfigurationManager.ConnectionStrings("RoyaltiesConn").ConnectionString
+    Dim Conn As New SqlConnection(ConnString)
+
+    Dim Comm As New SqlCommand
     Dim dt As New DataTable
     Dim da As New SqlDataAdapter
     Dim ds As New DataSet
     Dim dr As SqlDataReader
 
-    Dim Conn_Royalties As New SqlConnection("Data Source=srvmainsql;Initial Catalog=Royalties;Persist Security Info=True;User ID=royalties;Password=royalties")
-
+    Public pDocNo As String
+    Public pDocType As String
+    Public currno As String
+    Dim SQLQuery As String
     Dim ErrMsg As String
 
     Public Property oErrMsg() As String
@@ -41,6 +46,7 @@ Public Class Clss
     Dim BankName As String
     Dim PaymentType As String
     Dim AuthorType As String
+    Dim PayTo As String
 
 
     Public Property oIDNo() As Integer
@@ -202,6 +208,15 @@ Public Class Clss
         End Get
         Set(ByVal value As String)
             AuthorType = value
+        End Set
+    End Property
+
+    Public Property oPayTo() As String
+        Get
+            oPayTo = PayTo
+        End Get
+        Set(ByVal value As String)
+            PayTo = value
         End Set
     End Property
 
@@ -450,6 +465,9 @@ Public Class Clss
 
     Dim DateStart As String
     Dim DateEnd As String
+    Dim DateContract As String
+    Dim ContractNo As String
+
 
     Public Property oDateStart() As String
         Get
@@ -469,25 +487,43 @@ Public Class Clss
         End Set
     End Property
 
+    Public Property oDateContract() As String
+        Get
+            oDateContract = DateContract
+        End Get
+        Set(ByVal value As String)
+            DateContract = value
+        End Set
+    End Property
+
+    Public Property oContractNo() As String
+        Get
+            oContractNo = ContractNo
+        End Get
+        Set(ByVal value As String)
+            ContractNo = value
+        End Set
+    End Property
+
     Function ExecuteNonQuery(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        sqlcomm = New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Comm = New SqlCommand(Query, Conn)
         Try
-            sqlcomm.ExecuteNonQuery()
+            Comm.ExecuteNonQuery()
             result = True
         Catch ex As Exception
             ErrMsg = ex.Message
             result = False
         End Try
-        sqlcomm.Dispose()
+        Comm.Dispose()
         Return result
     End Function
 
     Function ExecuteNonQuery_Read(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        Dim comm As New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
         Try
             dr = comm.ExecuteReader()
             If dr.HasRows Then
@@ -504,9 +540,9 @@ Public Class Clss
     Function ExecuteDataTable(ByVal Query As String, ByVal Contains As Object) As DataTable
         Dim result As DataTable = Nothing
         'dr.Close()
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
         Try
-            da = New SqlDataAdapter(Query, Conn_Royalties)
+            da = New SqlDataAdapter(Query, Conn)
             da.Fill(ds, Contains)
             result = ds.Tables(Contains)
         Catch ex As Exception
@@ -518,8 +554,8 @@ Public Class Clss
 
     Function ExecuteNonQuery_Author(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        Dim comm As New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
         Try
             dr = comm.ExecuteReader()
             If dr.Read Then
@@ -555,8 +591,8 @@ Public Class Clss
 
     Function ExecuteNonQuery_Title(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        Dim comm As New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
         Try
             dr = comm.ExecuteReader()
             If dr.Read Then
@@ -591,8 +627,8 @@ Public Class Clss
 
     Function ExecuteNonQuery_Sales(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        Dim comm As New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
         Try
             dr = comm.ExecuteReader()
             If dr.Read Then
@@ -625,20 +661,20 @@ Public Class Clss
 
     Function ExecuteNonQuery_Contract(ByVal Query) As Boolean
         Dim result As Boolean
-        If Conn_Royalties.State = ConnectionState.Closed Then Conn_Royalties.Open()
-        Dim comm As New SqlCommand(Query, Conn_Royalties)
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
         Try
             dr = comm.ExecuteReader()
             If dr.Read Then
-                Imprint = dr("imprint").ToString
+                'Imprint = dr("imprint").ToString
                 ItemCode = dr("ItemCode").ToString
                 ISBN = dr("ISBN").ToString
-                Title = dr("Title").ToString
-                Category = dr("Catagory1").ToString
-                SubCategory = dr("Catagory2").ToString
-                CoverPrice = dr("CoverPrice").ToString
-                PubDate = dr("PubDate").ToString
-                Status = dr("Status").ToString
+                'Title = dr("Title").ToString
+                'Category = dr("Catagory1").ToString
+                'SubCategory = dr("Catagory2").ToString
+                'CoverPrice = dr("CoverPrice").ToString
+                'PubDate = dr("PubDate").ToString
+                'Status = dr("Status").ToString
                 If dr("id").ToString Is DBNull.Value Or dr("id").ToString = "" Then
                     IDNo = 0
                 Else
@@ -647,6 +683,7 @@ Public Class Clss
 
                 DateStart = dr("DateStart").ToString
                 DateEnd = dr("DateEnd").ToString
+                DateContract = dr("DateContract").ToString
                 IC = dr("AuthorIC").ToString
                 result = True
             ElseIf Not dr.Read Then
@@ -658,5 +695,126 @@ Public Class Clss
         End Try
         'dr.Close()
         Return result
+    End Function
+
+    Function ExecuteNonQuery_AuthorPayment(ByVal Query) As Boolean
+        Dim result As Boolean
+        If Conn.State = ConnectionState.Closed Then Conn.Open()
+        Dim comm As New SqlCommand(Query, Conn)
+        Try
+            dr = comm.ExecuteReader()
+            If dr.Read Then
+                ContractNo = dr("ContractNo").ToString
+                ItemCode = dr("ItemCode").ToString
+                ISBN = dr("ISBN").ToString
+                Name = dr("AuthorName").ToString
+                PayTo = dr("PayTo").ToString
+                If dr("id").ToString Is DBNull.Value Or dr("id").ToString = "" Then
+                    IDNo = 0
+                Else
+                    IDNo = dr("id").ToString
+                End If
+                IC = dr("IC").ToString
+                result = True
+            ElseIf Not dr.Read Then
+
+            End If
+        Catch ex As Exception
+            ErrMsg = ex.Message
+            result = False
+        End Try
+        'dr.Close()
+        Return result
+    End Function
+
+    Function CheckupDocNo(Type, Val) As Boolean
+        If UCase(pDocNo) = "NEW" Then
+            If setdocno("DOCNO", pDocType) Then
+                pDocNo = pDocNo
+            End If
+        End If
+
+        If checkexist(pDocNo, "pdocno") Then
+            ErrMsg = "Doc No Already Exist"
+            Return False
+        End If
+    End Function
+
+    Function setdocno(ByVal jenis As String, ByVal nilai As String) As Boolean
+        '  Dim nenilai As String
+        '  Dim curnilai As String
+        Dim ret As Boolean
+        Try
+            Select Case jenis
+                Case "DOCNO"
+                    SQLQuery = "select description from ConfDocControl where setupname='" & jenis & "' and itemname='" & nilai & "'"
+
+            End Select
+            Comm = New SqlCommand(SQLQuery, Conn)
+            If conn.State = ConnectionState.Closed Then conn.Open()
+            dr = comm.ExecuteReader
+            If dr.Read Then
+                '   curnilai = dr.Item(0).ToString
+                pdocno = nilai + "-" + putdocno(dr.Item(0).ToString)
+                ret = True
+            Else
+                ErrMsg = "Maintenance DocNo Does Not Exist"
+                ret = False
+            End If
+
+
+            dr.Close()
+            comm.Dispose()
+
+            Return ret
+        Catch ex As Exception
+            dr.Close()
+            comm.Dispose()
+            ErrMsg = ex.Message
+            Return False
+        End Try
+    End Function
+
+    Function putdocno(ByVal nil As String) As String
+        nil = Trim(Str(Val(nil) + 1))
+        currno = nil
+        Select Case Len(nil)
+            Case 1
+                Return "00000" + nil
+            Case 2
+                Return "0000" + nil
+            Case 3
+                Return "000" + nil
+            Case 4
+                Return "00" + nil
+            Case 5
+                Return "0" + nil
+        End Select
+    End Function
+
+    Function checkexist(ByVal nil As String, ByVal jenis As String) As Boolean
+        Dim ret As Boolean
+        Try
+            Select Case jenis
+                Case "pdocno"
+                    SQLQuery = "select ContractNo from infContract where ContractNo='" & nil & "'"
+            End Select
+            Comm = New SqlCommand(SQLQuery, Conn)
+            If conn.State = ConnectionState.Closed Then conn.Open()
+            dr = comm.ExecuteReader
+            If dr.Read Then
+                ret = True
+            Else
+                ret = False
+            End If
+            dr.Close()
+            comm.Dispose()
+            Return ret
+        Catch ex As Exception
+            dr.Close()
+            comm.Dispose()
+            ErrMsg = ex.Message
+            Return False
+        End Try
     End Function
 End Class

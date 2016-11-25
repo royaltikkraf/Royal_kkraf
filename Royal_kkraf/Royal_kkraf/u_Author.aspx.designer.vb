@@ -113,6 +113,24 @@ Partial Public Class u_Author
     Protected WithEvents lblID As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''ddlAuthorType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlAuthorType As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''AuthorType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents AuthorType As Global.System.Web.UI.WebControls.SqlDataSource
+
+    '''<summary>
     '''txtName control.
     '''</summary>
     '''<remarks>
@@ -293,15 +311,6 @@ Partial Public Class u_Author
     Protected WithEvents Status As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
-    '''txtNamePayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtNamePayTo As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''txtBankNoPayTo control.
     '''</summary>
     '''<remarks>
@@ -345,51 +354,6 @@ Partial Public Class u_Author
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PaymentType As Global.System.Web.UI.WebControls.SqlDataSource
-
-    '''<summary>
-    '''btnAddPayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnAddPayTo As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''gvPayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gvPayTo As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''PayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PayTo As Global.System.Web.UI.WebControls.SqlDataSource
-
-    '''<summary>
-    '''ddlAuthorType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlAuthorType As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''AuthorType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents AuthorType As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
     '''ValidationSummary1 control.

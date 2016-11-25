@@ -102,6 +102,12 @@
             margin-bottom: 10px;
         }
     </style>--%>
+    <style type="text/css">
+        .auto-style1 {
+            color: #FF0000;
+            font-size: small;
+        }
+    </style>
 </head>
 
 <body>
@@ -117,14 +123,15 @@
                             <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
                                 eRoyalties : Create/Update Contract
                             </div>
-                            <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" DataSourceID="FormView">
+                            <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" DataSourceID="FormView" Width="100%">
                                 <EditItemTemplate>
-                                    id:<asp:Label ID="idLabel1" runat="server" Text='<%# Eval("id") %>' />
+                                    Contract No<br />
+                                    <asp:Label ID="idLabel2" runat="server" Text='<%# Eval("ContractNo", "{0}") %>' />
                                     <br />
-                                    ISBN:<br />
-                                    <asp:TextBox ID="ISBNTextBox" runat="server" ReadOnly="true" Text='<%# Bind("ISBN", "{0}") %>' Width="120px" />
+                                    ISBN<br />
+                                    <asp:TextBox ID="ISBNTextBox" runat="server" ReadOnly="true" Text='<%# Bind("ISBN", "{0}") %>' Width="100px" />
                                     <br />
-                                    Title:<br />
+                                    Title<br />
                                     <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="TitleList" DataTextField="Title" DataValueField="ISBN" SelectedValue='<%# Bind("ISBN") %>'>
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="TitleList" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT Title, ISBN FROM infTitles WHERE (ISBN = @ISBN)">
@@ -150,7 +157,7 @@
                                     <br />
                                 </EditItemTemplate>
                                 <InsertItemTemplate>
-                                    Title:<br />
+                                    Contract No<br /><span class="auto-style1"><em><strong>NEW</strong></em></span><br />Title<br />
                                     <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="ListTitleInsert" DataTextField="Title" DataValueField="ISBN">
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="ListTitleInsert" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [Title], [ISBN] FROM [infTitles] ORDER BY [Title]"></asp:SqlDataSource>

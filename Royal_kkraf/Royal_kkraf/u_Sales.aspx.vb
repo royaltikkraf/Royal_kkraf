@@ -85,7 +85,7 @@ Public Class u_Sales
     Function LoadGridSales(ByVal SortField As String, ByVal SQuery As String) As Boolean
         Dim dT As DataTable
         Senarai.CurrentPageIndex = 0
-        Query = "Select * From infSales " & TentukanAksaraCalit(SQuery) & " Order by SalesDate ASC"
+        Query = "Select * From infSales " & SQuery & " Order by SalesDate ASC"
         dT = Clss.ExecuteDataTable(Query, "Senarai")
         If dT Is Nothing Then
             lblErrMsg.Text = String.Format("ERROR : Bind Data ({0})!", Clss.oErrMsg)

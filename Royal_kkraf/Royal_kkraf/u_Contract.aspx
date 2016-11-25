@@ -17,7 +17,8 @@
             <Columns>
                 <asp:ButtonColumn CommandName="Select" Text="Select"></asp:ButtonColumn>
                 <asp:BoundColumn DataField="id" HeaderText="S/N" SortExpression="id" Visible="False"></asp:BoundColumn>
-                <asp:BoundColumn DataField="ItemCode" HeaderText="Item Code" SortExpression="ItemCode"></asp:BoundColumn>
+                <asp:BoundColumn DataField="ItemCode" HeaderText="Item Code" SortExpression="ItemCode" Visible="False"></asp:BoundColumn>
+                <asp:BoundColumn DataField="ContractNo" HeaderText="Contract No" SortExpression="ContractNo"></asp:BoundColumn>
                 <asp:BoundColumn DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN"></asp:BoundColumn>
                 <asp:BoundColumn DataField="Title" HeaderText="Title" SortExpression="Title"></asp:BoundColumn>
                 <asp:TemplateColumn HeaderText="Author">

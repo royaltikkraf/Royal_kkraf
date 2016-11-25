@@ -18,7 +18,6 @@ Public Class u_Author
             ddlPaymentType.DataBind()
             ddlBankName.DataBind()
             ddlAuthorType.DataBind()
-            gvPayTo.DataBind()
             If SortExp.Text = "" Then
                 LoadGridAuthor("", "")
             Else
@@ -215,7 +214,6 @@ Public Class u_Author
             TentukanAksaraCalit(txtAddMailing.Text) & "', address_Permanent = '" & TentukanAksaraCalit(txtAddPermanent.Text) & "', address_email = '" & TentukanAksaraCalit(txtEmail.Text) & "', DateJoin = CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), website = '" & TentukanAksaraCalit(txtWebsite.Text) & "', facebook = '" & _
             TentukanAksaraCalit(txtFacebook.Text) & "', twitter = '" & TentukanAksaraCalit(txtTwitter.Text) & "', Status = '" & ddlStatus.SelectedValue & "', BankNo = '" & TentukanAksaraCalit(txtBankNoPayTo.Text) & "', BankName = '" & ddlBankName.SelectedValue & "', PaymentType = '" & _
             ddlPaymentType.SelectedValue & "', AuthorType = '" & ddlAuthorType.SelectedValue & "' WHERE (id = " & lblID.Text & ")"
-
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = True Then
             ShowPopUpMsg("Succes : UPDATE Data")
@@ -293,20 +291,4 @@ Public Class u_Author
         LoadGridAuthor("", Cond)
     End Sub
 
-    Protected Sub btnAddPayTo_Click(sender As Object, e As EventArgs) Handles btnAddPayTo.Click
-        Dim SQLQuery As String
-        SQLQuery = "INSERT INTO infAuthorPayTo(AuthorIC, PayTo, BankNo, BankName, PaymentType)Values('" & _
-            txtIC.Text & "', '" & txtNamePayTo.Text & "', '" & txtBankNoPayTo.Text & "', '" & ddlBankName.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "')"
-        Result = Clss.ExecuteNonQuery(SQLQuery)
-        If Result = True Then
-            ShowPopUpMsg("Succes : INSERT Data")
-            txtNamePayTo.Text = ""
-            txtBankNoPayTo.Text = ""
-            ddlBankName.DataBind()
-            ddlPaymentType.DataBind()
-            gvPayTo.DataBind()
-        Else
-            ShowPopUpMsg("Error : INSERT Data " & Clss.oErrMsg & "")
-        End If
-    End Sub
 End Class
