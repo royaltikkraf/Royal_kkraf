@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-        eRoyalties : Authors/Agency/
+        eRoyalties : Authors/Agency/Benefeciary
     </div>
     <asp:Panel ID="PanelGrid" runat="server">
 
@@ -17,6 +17,7 @@
             <Columns>
                 <asp:ButtonColumn CommandName="Select" Text="&gt;&gt;" ButtonType="PushButton"></asp:ButtonColumn>
                 <asp:BoundColumn DataField="id" HeaderText="S/N" SortExpression="id" Visible="False"></asp:BoundColumn>
+                <asp:BoundColumn DataField="DocNo" HeaderText="Doc No" SortExpression="DocNo"></asp:BoundColumn>
                 <asp:BoundColumn DataField="nickname" HeaderText="Nama" SortExpression="nickname"></asp:BoundColumn>
                 <asp:BoundColumn DataField="hphone" HeaderText="HP" SortExpression="hphone"></asp:BoundColumn>
                 <asp:BoundColumn DataField="address_email" HeaderText="e-mail" SortExpression="address_email"></asp:BoundColumn>
@@ -33,10 +34,11 @@
     <asp:Panel ID="PanelDetail" runat="server" Visible="False">
         <table>
             <tr>
-                <td style="vertical-align: top; text-align: left">S/N</td>
+                <td style="vertical-align: top; text-align: left">Doc No</td>
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
-                    <asp:Label ID="lblID" runat="server"></asp:Label>
+                    <asp:Label ID="lblID" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="lblDocNo" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -159,18 +161,19 @@
                 <td style="vertical-align: top; text-align: left">Bank Name</td>
                 <td style="vertical-align: top; text-align: left">&nbsp;</td>
                 <td>
-                    <asp:DropDownList ID="ddlBankName" runat="server" DataSourceID="Bank" DataTextField="Desc" DataValueField="Name" Width="280px">
+                    <asp:DropDownList ID="ddlBankName" runat="server" DataSourceID="Bank" DataTextField="BankName" DataValueField="BankName" Width="280px" AutoPostBack="True">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="Bank" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfBankName] ORDER BY [Desc]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="Bank" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT BankName FROM ConfBankName ORDER BY BankName"></asp:SqlDataSource>
                 </td>
             </tr>
             <tr>
-                <td style="vertical-align: top; text-align: left">&nbsp;</td>
+                <td style="vertical-align: top; text-align: left">Payment Type</td>
                 <td style="vertical-align: top; text-align: left">&nbsp;</td>
                 <td>
-                    <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="Desc" DataValueField="Name" Width="280px">
+                    <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="MethodPayment" DataValueField="MethodPayment" Width="280px">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [Name], [Desc] FROM [ConfPaymentType] ORDER BY [Desc]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT MethodPayment FROM ConfBankName  ORDER BY MethodPayment">
+                    </asp:SqlDataSource>
                 </td>
             </tr>
             <tr>

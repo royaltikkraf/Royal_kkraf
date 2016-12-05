@@ -11,77 +11,77 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class u_PaymentNewUpdate
+Partial Public Class BookList
 
     '''<summary>
-    '''txtDate control.
+    '''form1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDate As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''txtDate_CalendarExtender control.
+    '''ddlcari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDate_CalendarExtender As Global.AjaxControlToolkit.CalendarExtender
+    Protected WithEvents ddlcari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlAuthor control.
+    '''txcari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlAuthor As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txcari As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''AuthorList control.
+    '''Button1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents AuthorList As Global.System.Web.UI.WebControls.SqlDataSource
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''ddlPayTo control.
+    '''GridView1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlPayTo As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''ddlPayTo0 control.
+    '''DropDownList1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlPayTo0 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''PaymentType control.
+    '''DropDownList2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PaymentType As Global.System.Web.UI.WebControls.SqlDataSource
+    Protected WithEvents DropDownList2 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''hfISBN control.
+    '''SearchAuthor control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hfISBN As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents SearchAuthor As Global.System.Web.UI.WebControls.SqlDataSource
 End Class

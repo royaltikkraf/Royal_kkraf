@@ -53,10 +53,10 @@ Public Class u_Contract
 
     Private Sub Senarai_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Senarai.SelectedIndexChanged
         Dim Code As String
-        Dim ISBN As String
-        Code = Senarai.SelectedItem.Cells(1).Text
-        ISBN = Senarai.SelectedItem.Cells(4).Text
-        EditClick(Code, ISBN)
+        'Dim ISBN As String
+        Code = Senarai.SelectedItem.Cells(3).Text
+        'ISBN = Senarai.SelectedItem.Cells(4).Text
+        EditClick(Code)
     End Sub
 
     Private Sub Status_Sort(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridSortCommandEventArgs) Handles Senarai.SortCommand
@@ -119,8 +119,8 @@ Public Class u_Contract
         sb.Append("');")
         ScriptManager.RegisterStartupScript(Me.Page, Me.[GetType](), "showalert", sb.ToString(), True)
     End Sub
-    Sub EditClick(Code As String, ISBN As String)
-        btnEdit.Attributes.Add("onclick", "window.open('u_ContractNewUpdate.aspx?ope=Edit&DocNo=" & Code & "&ISBN=" & ISBN & "', 'calendar_window','toolbars=no','location=no','menubar=no','width=800','height=350','resizable=no','top=200','left=250');return false;")
+    Sub EditClick(Code As String)
+        btnEdit.Attributes.Add("onclick", "window.open('u_ContractNewUpdate.aspx?ope=Edit&DocNo=" & Code & "', 'calendar_window','toolbars=no','location=no','menubar=no','width=800','height=350','resizable=no','top=200','left=250');return false;")
     End Sub
 
     Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click

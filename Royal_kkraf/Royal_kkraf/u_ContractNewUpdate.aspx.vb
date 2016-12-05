@@ -5,22 +5,23 @@
     Dim Clss As New Clss
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         If Not IsPostBack Then
-
             If Request.QueryString("ope") = "Edit" Then
-                FormView1.ChangeMode(FormViewMode.Edit)
+                Dim DocNo As String = Request.QueryString("docno")
                 SetInitialRow()
-                ViewState("CurrentTable") = ClsAddUpdate.loaddetail(Request.QueryString("docno"))
+                ViewState("CurrentTable") = ClsAddUpdate.loaddetail(DocNo)
                 SetEditData()
+                SetEditDataForm(DocNo)
                 btnAddAuthor.Visible = False
                 btnSave.Visible = False
+                btnSearch.Visible = False
             Else
-                FormView1.ChangeMode(FormViewMode.Insert)
+                btnSearch.Visible = True
                 btnUpdate.Visible = False
                 btnDelete.Visible = False
                 SetInitialRow()
             End If
+        Else
         End If
     End Sub
 
@@ -32,17 +33,16 @@
         dt.Columns.Add(New DataColumn("Type", GetType(String)))
         dt.Columns.Add(New DataColumn("Pecentage", GetType(String)))
         dt.Columns.Add(New DataColumn("PayTo", GetType(String)))
-        dt.Columns.Add(New DataColumn("Book", GetType(String)))
-        dt.Columns.Add(New DataColumn("eBook", GetType(String)))
+        dt.Columns.Add(New DataColumn("ICPayTo", GetType(String)))
         dt.Columns.Add(New DataColumn("Advance", GetType(String)))
         dr = dt.NewRow()
+
         dr("Name") = String.Empty
         dr("IC") = String.Empty
         dr("Type") = String.Empty
         dr("Pecentage") = 0
         dr("PayTo") = String.Empty
-        dr("Book") = String.Empty
-        dr("eBook") = String.Empty
+        dr("ICPayTo") = String.Empty
         dr("Advance") = String.Empty
         dt.Rows.Add(dr)
 
@@ -67,8 +67,7 @@
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
                     Dim box5 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("PayTo"), TextBox)
-                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Book"), TextBox)
-                    Dim box7 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("eBook"), TextBox)
+                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("ICPayTo"), TextBox)
                     Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
 
                     box1.Text = dt.Rows(i)("Name").ToString()
@@ -76,8 +75,7 @@
                     box3.Text = dt.Rows(i)("Type").ToString()
                     box4.Text = dt.Rows(i)("Pecentage").ToString()
                     box5.Text = dt.Rows(i)("PayTo").ToString()
-                    box6.Text = dt.Rows(i)("Book").ToString()
-                    box7.Text = dt.Rows(i)("eBook").ToString()
+                    box6.Text = dt.Rows(i)("ICPayTo").ToString()
                     box8.Text = dt.Rows(i)("Advance").ToString()
 
                     rowIndex += 1
@@ -88,6 +86,25 @@
 
 
         End If
+    End Sub
+
+    Private Sub SetEditDataForm(ContractNo As String)
+        Dim SqlQuery As String
+        Dim Result As Boolean
+        SqlQuery = "Select * FROm infContract Where ContractNo ='" & ContractNo & "'"
+        Result = Clss.ExecuteNonQuery_Contract(SqlQuery)
+        If Result = True Then
+            txtContract.Text = Clss.oContractNo
+            txtTitle.Value = Clss.oTitle
+            txtISBN.Value = Clss.oISBN
+            txtContractDate.Text = Clss.oDateContract
+            txtStartDate.Text = Clss.oDateStart
+            txtEndDate.Text = Clss.oDateEnd
+            txtBook.Text = Clss.oBook
+            txteBook.Text = Clss.oeBook
+        End If
+
+
     End Sub
 
     Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
@@ -135,8 +152,7 @@
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
                     Dim box5 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("PayTo"), TextBox)
-                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Book"), TextBox)
-                    Dim box7 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("eBook"), TextBox)
+                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("ICPayTo"), TextBox)
                     Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
 
                     box1.Text = dt.Rows(i)("Name").ToString()
@@ -144,8 +160,7 @@
                     box3.Text = dt.Rows(i)("Type").ToString()
                     box4.Text = dt.Rows(i)("Pecentage").ToString()
                     box5.Text = dt.Rows(i)("PayTo").ToString()
-                    box6.Text = dt.Rows(i)("Book").ToString()
-                    box7.Text = dt.Rows(i)("eBook").ToString()
+                    box6.Text = dt.Rows(i)("ICPayTo").ToString()
                     box8.Text = dt.Rows(i)("Advance").ToString()
 
                     rowIndex += 1
@@ -173,8 +188,7 @@
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
                     Dim box5 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("PayTo"), TextBox)
-                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Book"), TextBox)
-                    Dim box7 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("eBook"), TextBox)
+                    Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("ICPayTo"), TextBox)
                     Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
 
                     drCurrentRow = dtCurrentTable.NewRow()
@@ -184,8 +198,7 @@
                     dtCurrentTable.Rows(i - 1)("Type") = box3.SelectedValue
                     dtCurrentTable.Rows(i - 1)("Pecentage") = box4.Text
                     dtCurrentTable.Rows(i - 1)("PayTo") = box5.Text
-                    dtCurrentTable.Rows(i - 1)("Book") = box6.Text
-                    dtCurrentTable.Rows(i - 1)("eBook") = box7.Text
+                    dtCurrentTable.Rows(i - 1)("ICPayTo") = box6.Text
                     dtCurrentTable.Rows(i - 1)("Advance") = box8.Text
 
                     rowIndex += 1
@@ -210,39 +223,54 @@
     Private Sub gdAuthor_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles gdAuthor.RowDataBound
 
         Dim ln As HyperLink
+        Dim ln02 As HyperLink
         Dim IC As String
+        Dim ICPayTo As String
         Dim Name As String
         Dim PayTo As String
         If e.Row.RowType = DataControlRowType.DataRow Then
-            ln = e.Row.FindControl("hlget")
-            If Not (IsNothing(ln)) Then
-                IC = e.Row.FindControl("IC").ClientID
-                Name = e.Row.FindControl("Name").ClientID
-                PayTo = e.Row.FindControl("PayTo").ClientID
-                ln.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + Name + "&IC=" + IC & "&PayTo=" + PayTo + "','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
+            ln = e.Row.FindControl("ln")
+            ln02 = e.Row.FindControl("ln02")
+
+            Name = e.Row.FindControl("Name").ClientID
+            IC = e.Row.FindControl("IC").ClientID
+
+            PayTo = e.Row.FindControl("PayTo").ClientID
+            ICPayTo = e.Row.FindControl("ICPayTo").ClientID
+
+            If ln.Text = "Get" Then
+                ln.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + Name + "&IC=" + IC & "','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
+            End If
+            If ln02.Text = "Get" Then
+                ln02.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + PayTo + "&IC=" + ICPayTo + "','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
             End If
         End If
     End Sub
 
-
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
-
-        Dim ISBN As TextBox
-        Dim DateStart As TextBox
-        Dim DateEnd As TextBox
-        Dim DateContract As TextBox
-
-        ISBN = FormView1.FindControl("ISBNTextbox")
-        DateStart = FormView1.FindControl("DateStartTextbox")
-        DateEnd = FormView1.FindControl("DateEndTextbox")
-        DateContract = FormView1.FindControl("DateContractTextBox")
-        If Not IsNothing(ISBN) Then
+        If Not IsNothing(txtTitle.Value) Then
             ClsAddUpdate.pDocNo = "NEW"
             ClsAddUpdate.pDocType = "CNT"
-            ClsAddUpdate.ContractDate = DateContract.Text
-            ClsAddUpdate.StartDate = DateEnd.Text
-            ClsAddUpdate.EndDate = DateEnd.Text
+            ClsAddUpdate.Title = txtTitle.Value
+            ClsAddUpdate.ISBN = txtISBN.Value
+            ClsAddUpdate.ContractDate = txtContractDate.Text
+            ClsAddUpdate.StartDate = txtStartDate.Text
+            ClsAddUpdate.EndDate = txtEndDate.Text
+            ClsAddUpdate.Book = txtBook.Text
+            ClsAddUpdate.eBook = txteBook.Text
+
+            If txtBook.Text <> "" Then
+                ClsAddUpdate.Book = txtBook.Text
+            Else
+                ClsAddUpdate.Book = 0
+            End If
+            If txteBook.Text <> "" Then
+                ClsAddUpdate.eBook = txteBook.Text
+            Else
+                ClsAddUpdate.eBook = 0
+            End If
+
             AddNewRowToGridBlank()
             ClsAddUpdate.Rectable = DirectCast(ViewState("CurrentTable"), DataTable)
             If ClsAddUpdate.savestocktransfer("Update") Then
@@ -257,27 +285,28 @@
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
-        Dim ISBN As DropDownList
-        Dim DateStart As TextBox
-        Dim DateEnd As TextBox
-        Dim DateContract As TextBox
-
         Dim i As Integer
         For i = 0 To gdAuthor.Rows.Count - 1
             gdAuthor.Rows(i).BackColor = Drawing.Color.White
         Next i
-
-        ISBN = FormView1.FindControl("Dropdownlist2")
-        DateStart = FormView1.FindControl("DateStartTextbox")
-        DateEnd = FormView1.FindControl("DateEndTextbox")
-        DateContract = FormView1.FindControl("DateContractTextBox")
-        If Not IsNothing(ISBN) Then
+        If txtTitle.Value <> "" Then
             ClsAddUpdate.pDocNo = "NEW"
             ClsAddUpdate.pDocType = "CNT"
-            ClsAddUpdate.ISBN = ISBN.SelectedValue
-            ClsAddUpdate.ContractDate = DateContract.Text
-            ClsAddUpdate.StartDate = DateStart.Text
-            ClsAddUpdate.EndDate = DateEnd.Text
+            ClsAddUpdate.Title = txtTitle.Value
+            ClsAddUpdate.ISBN = txtISBN.Value
+            ClsAddUpdate.ContractDate = txtContractDate.Text
+            ClsAddUpdate.StartDate = txtStartDate.Text
+            ClsAddUpdate.EndDate = txtEndDate.Text
+            If txtBook.Text <> "" Then
+                ClsAddUpdate.Book = txtBook.Text
+            Else
+                ClsAddUpdate.Book = 0
+            End If
+            If txteBook.Text <> "" Then
+                ClsAddUpdate.eBook = txteBook.Text
+            Else
+                ClsAddUpdate.eBook = 0
+            End If
             AddNewRowToGridBlank()
             ClsAddUpdate.Rectable = DirectCast(ViewState("CurrentTable"), DataTable)
             If ClsAddUpdate.savestocktransfer("Create") Then
@@ -288,6 +317,20 @@
             End If
         End If
     End Sub
+
+    'Function checkTitle(ISBN As String) As Boolean
+    '    Dim sqlquery As String
+    '    Dim Result As Boolean
+    '    sqlquery = "SELECT * FROM infTitles Where ISBN ='" & ISBN & "'"
+    '    Result = Clss.ExecuteNonQuery_Title(sqlquery)
+    '    If Result = True Then
+    '        rISBN = Clss.oISBN
+    '        rTitle = Clss.oTitle
+    '        Return True
+    '    Else
+    '        Return False
+    '    End If
+    'End Function
 
     Private Sub ShowPopUpMsg(msg As String)
         Dim sb As New StringBuilder()
@@ -304,8 +347,8 @@
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
 
         Dim SQLQuery As String
-        Dim ISBN As String = Request.QueryString("ISBN")
-        SQLQuery = "DELETE FROM infContract WHERE ISBN ='" & ISBN & "'; Delete FROM infTransAuthor WHERE ISBN='" & ISBN & "'"
+        Dim ContractNo As String = Request.QueryString("docno")
+        SQLQuery = "DELETE FROM infContract WHERE ContractNo ='" & ContractNo & "'; Delete FROM infTransAuthor WHERE ContractNo='" & ContractNo & "'"
         Dim Result As Boolean
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = False Then
@@ -314,4 +357,5 @@
             Response.Redirect("u_Contract.aspx")
         End If
     End Sub
+
 End Class

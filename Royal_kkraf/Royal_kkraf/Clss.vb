@@ -18,6 +18,7 @@ Public Class Clss
     Public currno As String
     Dim SQLQuery As String
     Dim ErrMsg As String
+    Dim ConCurrNumber As String
 
     Public Property oErrMsg() As String
         Get
@@ -25,6 +26,15 @@ Public Class Clss
         End Get
         Set(ByVal value As String)
             ErrMsg = value
+        End Set
+    End Property
+
+    Public Property oConCurrNumber() As String
+        Get
+            oConCurrNumber = ConCurrNumber
+        End Get
+        Set(ByVal value As String)
+            ConCurrNumber = value
         End Set
     End Property
 
@@ -47,6 +57,7 @@ Public Class Clss
     Dim PaymentType As String
     Dim AuthorType As String
     Dim PayTo As String
+    Dim DocNo As String
 
 
     Public Property oIDNo() As Integer
@@ -220,6 +231,15 @@ Public Class Clss
         End Set
     End Property
 
+    Public Property oDocNo() As String
+        Get
+            oDocNo = DocNo
+        End Get
+        Set(ByVal value As String)
+            DocNo = value
+        End Set
+    End Property
+
     Dim ItemCode As String
     Dim Title As String
     Dim ISBN As String
@@ -234,6 +254,8 @@ Public Class Clss
     Dim CoverPrice As String
     Dim Cost As String
     Dim Barcode As String
+    Dim Book As String
+    Dim eBook As String
 
 
     Public Property oItemCode() As String
@@ -362,6 +384,24 @@ Public Class Clss
         End Set
     End Property
 
+    Public Property oBook() As String
+        Get
+            oBook = Book
+        End Get
+        Set(ByVal value As String)
+            Book = value
+        End Set
+    End Property
+
+    Public Property oeBook() As String
+        Get
+            oeBook = eBook
+        End Get
+        Set(ByVal value As String)
+            eBook = value
+        End Set
+    End Property
+
     Dim SalesDate As String
     Dim InvoiceNo As String
     Dim CustomerCode As String
@@ -467,6 +507,8 @@ Public Class Clss
     Dim DateEnd As String
     Dim DateContract As String
     Dim ContractNo As String
+    Dim Nota As String
+    Dim Amount As String
 
 
     Public Property oDateStart() As String
@@ -502,6 +544,24 @@ Public Class Clss
         End Get
         Set(ByVal value As String)
             ContractNo = value
+        End Set
+    End Property
+
+    Public Property oNota() As String
+        Get
+            oNota = Nota
+        End Get
+        Set(ByVal value As String)
+            Nota = value
+        End Set
+    End Property
+
+    Public Property oAmount() As String
+        Get
+            oAmount = Amount
+        End Get
+        Set(ByVal value As String)
+            Amount = value
         End Set
     End Property
 
@@ -577,6 +637,7 @@ Public Class Clss
                 BankName = dr(15).ToString
                 PaymentType = dr(16).ToString
                 AuthorType = dr(17).ToString
+                DocNo = dr(18).ToString
                 result = True
             ElseIf Not dr.Read Then
 
@@ -669,10 +730,11 @@ Public Class Clss
                 'Imprint = dr("imprint").ToString
                 ItemCode = dr("ItemCode").ToString
                 ISBN = dr("ISBN").ToString
-                'Title = dr("Title").ToString
-                'Category = dr("Catagory1").ToString
-                'SubCategory = dr("Catagory2").ToString
-                'CoverPrice = dr("CoverPrice").ToString
+                Title = dr("Title").ToString
+                ContractNo = dr("ContractNo").ToString
+                Book = dr("RoyaltiFizikal").ToString
+
+                eBook = dr("RoyaltieBook").ToString
                 'PubDate = dr("PubDate").ToString
                 'Status = dr("Status").ToString
                 If dr("id").ToString Is DBNull.Value Or dr("id").ToString = "" Then
@@ -697,7 +759,7 @@ Public Class Clss
         Return result
     End Function
 
-    Function ExecuteNonQuery_AuthorPayment(ByVal Query) As Boolean
+    Function ExecuteNonQuery_OthersPayment(ByVal Query) As Boolean
         Dim result As Boolean
         If Conn.State = ConnectionState.Closed Then Conn.Open()
         Dim comm As New SqlCommand(Query, Conn)
@@ -705,16 +767,19 @@ Public Class Clss
             dr = comm.ExecuteReader()
             If dr.Read Then
                 ContractNo = dr("ContractNo").ToString
-                ItemCode = dr("ItemCode").ToString
-                ISBN = dr("ISBN").ToString
-                Name = dr("AuthorName").ToString
-                PayTo = dr("PayTo").ToString
+                IC = dr("AuthorIC").ToString
+                PayTo = dr("PayToIC").ToString
+                DocNo = dr("DocNo").ToString
+                ContractNo = dr("ContractNo").ToString
+                DateStart = dr("Date").ToString
+                Nota = dr("Note").ToString
+                PaymentType = dr("CodePaymentType").ToString
+                Amount = dr("Value").ToString
                 If dr("id").ToString Is DBNull.Value Or dr("id").ToString = "" Then
                     IDNo = 0
                 Else
                     IDNo = dr("id").ToString
                 End If
-                IC = dr("IC").ToString
                 result = True
             ElseIf Not dr.Read Then
 
@@ -727,16 +792,18 @@ Public Class Clss
         Return result
     End Function
 
-    Function CheckupDocNo(Type, Val) As Boolean
-        If UCase(pDocNo) = "NEW" Then
-            If setdocno("DOCNO", pDocType) Then
-                pDocNo = pDocNo
-            End If
+    Function CheckupDocNo(Type, DocType, DocCont) As Boolean
+
+        If setdocno("DOCNO", DocType) Then
+            pDocNo = pDocNo
         End If
 
-        If checkexist(pDocNo, "pdocno") Then
-            ErrMsg = "Doc No Already Exist"
+        If checkexist(pDocNo, DocType) Then
+            ErrMsg = "Document Number Already Exist"
             Return False
+        Else
+            DocNo = pDocNo
+            Return True
         End If
     End Function
 
@@ -744,6 +811,10 @@ Public Class Clss
         '  Dim nenilai As String
         '  Dim curnilai As String
         Dim ret As Boolean
+        Dim Tarikh As String
+        Dim rTarikh As String
+        Tarikh = Format(Today, "yy/MM/dd")
+        rTarikh = Tarikh.Replace("/", "")
         Try
             Select Case jenis
                 Case "DOCNO"
@@ -755,7 +826,7 @@ Public Class Clss
             dr = comm.ExecuteReader
             If dr.Read Then
                 '   curnilai = dr.Item(0).ToString
-                pdocno = nilai + "-" + putdocno(dr.Item(0).ToString)
+                pDocNo = nilai + "-" + rTarikh + putdocno(dr.Item(0).ToString)
                 ret = True
             Else
                 ErrMsg = "Maintenance DocNo Does Not Exist"
@@ -777,18 +848,16 @@ Public Class Clss
 
     Function putdocno(ByVal nil As String) As String
         nil = Trim(Str(Val(nil) + 1))
-        currno = nil
+        ConCurrNumber = nil
         Select Case Len(nil)
             Case 1
-                Return "00000" + nil
-            Case 2
-                Return "0000" + nil
-            Case 3
                 Return "000" + nil
-            Case 4
+            Case 2
                 Return "00" + nil
-            Case 5
+            Case 3
                 Return "0" + nil
+            Case 4
+                Return nil
         End Select
     End Function
 
@@ -798,6 +867,10 @@ Public Class Clss
             Select Case jenis
                 Case "pdocno"
                     SQLQuery = "select ContractNo from infContract where ContractNo='" & nil & "'"
+                Case "AUT"
+                    SQLQuery = "select DocNo from infAuthor where DocNo='" & nil & "'"
+                Case "PAY"
+                    SQLQuery = "select DocNo from infOthersPayment where DocNo='" & nil & "'"
             End Select
             Comm = New SqlCommand(SQLQuery, Conn)
             If conn.State = ConnectionState.Closed Then conn.Open()

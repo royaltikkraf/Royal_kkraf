@@ -19,6 +19,7 @@ Public Class AddUpdate
     Public BilRow As Integer
     Public currno As String
     Public ISBN As String
+    Public Title As String
     Public ContractDate As String
     Public StartDate As String
     Public EndDate As String
@@ -28,11 +29,13 @@ Public Class AddUpdate
 
     Public Name As String
     Public IC As String
+    Public ICPayTo As String
     Public TypeP As String
     Public Pecentage As Integer
     Public PayTo As String
     Public Book As Integer
     Public eBook As Integer
+   
     Public Advance As Integer
 
 
@@ -56,8 +59,8 @@ Public Class AddUpdate
             End If
 
             If type = "Create" Then
-                SQLQuery = "INSERT INTO infContract(ContractNo, ISBN, DateStart, DateEnd, DateContract) Values ('" & pDocNo & "','" & _
-                    ISBN & "', Convert(Datetime,'" & StartDate & "',103), Convert(Datetime,'" & EndDate & "',103), Convert(Datetime,'" & ContractDate & "',103))"
+                SQLQuery = "INSERT INTO infContract(ContractNo,Title, ISBN, DateStart, DateEnd, DateContract, RoyaltiFizikal, RoyaltieBook) Values ('" & pDocNo & "', '" & Title & "','" & _
+                    ISBN & "', Convert(Datetime,'" & StartDate & "',103), Convert(Datetime,'" & EndDate & "',103), Convert(Datetime,'" & ContractDate & "',103), " & Book & ", " & eBook & ")"
             ElseIf type = "Edit" Then
                 SQLQuery = ""
             End If
@@ -78,12 +81,11 @@ Public Class AddUpdate
                     TypeP = row.Item("Type").ToString
                     Pecentage = row.Item("Pecentage")
                     PayTo = row.Item("PayTo").ToString
-                    Book = row.Item("Book")
-                    eBook = row.Item("eBook")
+                    ICPayTo = row.Item("ICPayTo").ToString
                     Advance = row.Item("Advance")
 
-                    SQLQuery = "INSERT INTO InfTransAuthor(ContractNo, AuthorName, IC, ISBN, Type, Pecentage, PayTo) VALUES ('" & pDocNo & "','" & _
-                        Name & "', '" & IC & "', '" & ISBN & "', '" & TypeP & "', " & Pecentage & ", '" & PayTo & "')"
+                    SQLQuery = "INSERT INTO InfTransAuthor(ContractNo, AuthorName, IC, ISBN, Type, Pecentage, PayTo, ICPayTo, Advance) VALUES ('" & pDocNo & "','" & _
+                        Name & "', '" & IC & "', '" & ISBN & "', '" & TypeP & "', " & Pecentage & ", '" & PayTo & "','" & ICPayTo & "', " & Advance & ")"
                     Comm.CommandText = SQLQuery
                     Comm.ExecuteNonQuery()
                 End If
@@ -276,6 +278,10 @@ Public Class AddUpdate
         '  Dim nenilai As String
         '  Dim curnilai As String
         Dim ret As Boolean
+        Dim Tarikh As String
+        Dim rTarikh As String
+        Tarikh = Format(Today, "yy/MM/dd")
+        rTarikh = Tarikh.Replace("/", "")
         Try
             Select Case jenis
                 Case "DOCNO"
@@ -287,7 +293,7 @@ Public Class AddUpdate
             dr = comm.ExecuteReader
             If dr.Read Then
                 '   curnilai = dr.Item(0).ToString
-                pdocno = nilai + "-" + putdocno(dr.Item(0).ToString)
+                pDocNo = nilai + "-" + rTarikh + putdocno(dr.Item(0).ToString)
                 ret = True
             Else
                 RetMsg = "Maintenance DocNo Does Not Exist"
@@ -314,15 +320,14 @@ Public Class AddUpdate
         currno = nil
         Select Case Len(nil)
             Case 1
-                Return "00000" + nil
-            Case 2
-                Return "0000" + nil
-            Case 3
                 Return "000" + nil
-            Case 4
+            Case 2
                 Return "00" + nil
-            Case 5
+            Case 3
                 Return "0" + nil
+            Case 4
+                Return nil
         End Select
     End Function
+
 End Class

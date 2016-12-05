@@ -14,10 +14,12 @@ Public Class u_Author
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
         If Not Page.IsPostBack Then
+
             ddlStatus.DataBind()
-            ddlPaymentType.DataBind()
             ddlBankName.DataBind()
+            ddlPaymentType.DataBind()
             ddlAuthorType.DataBind()
+
             If SortExp.Text = "" Then
                 LoadGridAuthor("", "")
             Else
@@ -124,8 +126,8 @@ Public Class u_Author
         Result = Clss.ExecuteNonQuery_Author(Query)
         If Result = True Then
             Dim DateJoin As Object
-
             lblID.Text = Clss.oIDNo
+            lblDocNo.Text = Clss.oDocNo
             txtName.Text = Clss.oName
             txtNickname.Text = Clss.oNickname
             txtIC.Text = Clss.oIC
@@ -151,6 +153,9 @@ Public Class u_Author
             txtTwitter.Text = Clss.oTwitter
             ddlStatus.SelectedValue = Clss.oStatus
             ddlAuthorType.SelectedValue = Clss.oAuthorType
+            ddlPaymentType.SelectedValue = Clss.oPaymentType
+            ddlBankName.SelectedValue = Clss.oBankName
+            txtBankNoPayTo.Text = Clss.oBankNo
             Result = True
         Else
             ShowPopUpMsg("ERROR : Load Data" & Clss.oErrMsg & "")
@@ -179,18 +184,22 @@ Public Class u_Author
 
     Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim SQLQuery As String
-        SQLQuery = "INSERT INTO infAuthor (name, nickname, IC, HPhone, fax, address_mail, address_Permanent, address_email, DateJoin, website, facebook, twitter, Status, BankNo, BankName, PaymentType, AuthorType) VALUES ('" & _
-            TentukanAksaraCalit(txtName.Text) & "', '" & TentukanAksaraCalit(txtNickname.Text) & "', '" & TentukanAksaraCalit(txtIC.Text) & "', '" & TentukanAksaraCalit(txtHPhone.Text) & "', '" & TentukanAksaraCalit(txtFax.Text) & "', '" & TentukanAksaraCalit(txtAddMailing.Text) & "', '" & TentukanAksaraCalit(txtAddPermanent.Text) & "', '" & _
-            TentukanAksaraCalit(txtEmail.Text) & "', CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), '" & TentukanAksaraCalit(txtWebsite.Text) & "', '" & TentukanAksaraCalit(txtFacebook.Text) & "', '" & TentukanAksaraCalit(txtTwitter.Text) & "', '" & ddlStatus.SelectedValue & "', '" & TentukanAksaraCalit(txtBankNoPayTo.Text) & "', '" & _
-            ddlBankName.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "', '" & ddlAuthorType.SelectedValue & "')"
-        Result = Clss.ExecuteNonQuery(SQLQuery)
+        Result = Clss.CheckupDocNo("DOCNO", "AUT", "NEW")
         If Result = True Then
-            ShowPopUpMsg("Succes : SAVE Data")
-            LoadGridAuthor("", "")
-            PanelDetail.Visible = False
-            PanelGrid.Visible = True
-        Else
-            ShowPopUpMsg("Error : SAVE Data " & Clss.oErrMsg & "")
+            lblDocNo.Text = Clss.oDocNo
+            SQLQuery = "INSERT INTO infAuthor (name, nickname, IC, HPhone, fax, address_mail, address_Permanent, address_email, DateJoin, website, facebook, twitter, Status, BankNo, BankName, PaymentType, AuthorType, DocNo) VALUES ('" & _
+                TentukanAksaraCalit(txtName.Text) & "', '" & TentukanAksaraCalit(txtNickname.Text) & "', '" & TentukanAksaraCalit(txtIC.Text) & "', '" & TentukanAksaraCalit(txtHPhone.Text) & "', '" & TentukanAksaraCalit(txtFax.Text) & "', '" & TentukanAksaraCalit(txtAddMailing.Text) & "', '" & TentukanAksaraCalit(txtAddPermanent.Text) & "', '" & _
+                TentukanAksaraCalit(txtEmail.Text) & "', CONVERT(DATETIME, '" & TentukanAksaraCalit(txtDateJoin.Text) & "', 103), '" & TentukanAksaraCalit(txtWebsite.Text) & "', '" & TentukanAksaraCalit(txtFacebook.Text) & "', '" & TentukanAksaraCalit(txtTwitter.Text) & "', '" & ddlStatus.SelectedValue & "', '" & TentukanAksaraCalit(txtBankNoPayTo.Text) & "', '" & _
+                ddlBankName.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "', '" & ddlAuthorType.SelectedValue & "', '" & lblDocNo.Text & "'); UPDATE ConfDocControl set Description='" & Clss.oConCurrNumber & "' where SetupName='DOCNO' and itemname='AUT'"
+            Result = Clss.ExecuteNonQuery(SQLQuery)
+            If Result = True Then
+                ShowPopUpMsg("Succes : SAVE Data")
+                LoadGridAuthor("", "")
+                PanelDetail.Visible = False
+                PanelGrid.Visible = True
+            Else
+                ShowPopUpMsg("Error : SAVE Data " & Clss.oErrMsg & "")
+            End If
         End If
     End Sub
 
@@ -235,6 +244,7 @@ Public Class u_Author
 
     Sub ClearDetailTitles()
         lblID.Text = ""
+        lblDocNo.Text = "NEW"
         txtName.Text = ""
         txtNickname.Text = ""
         txtIC.Text = ""

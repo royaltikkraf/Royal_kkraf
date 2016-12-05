@@ -1,24 +1,12 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="AuthorList.aspx.vb" Inherits="Royal_kkraf.AuthorList" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="BookList.aspx.vb" Inherits="Royal_kkraf.BookList" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>List of Book</title>
 </head>
-<script type="text/javascript">
-    function SetName() {
-        if (window.opener != null && !window.opener.closed) {
-            var itemcode = window.opener.document.getElementById("<%= Request.QueryString("IC")%>");
-            itemcode.value = document.getElementById("hfIC").value;
-            var itemdesc = window.opener.document.getElementById("<%= request.querystring("Name") %>");
-            itemdesc.value = document.getElementById("hfName").value;
-          <%--  var PayTo = window.opener.document.getElementById("<%= Request.QueryString("PayTo")%>");
-            PayTo.value = document.getElementById("hfName").value;--%>
-        }
-        window.close();
-    }
-</script>
+
 <body>
     <form id="form1" runat="server">
         <div>
@@ -28,19 +16,18 @@
                     eRoyalties
                 </div>
 
-                Author Listing<br />
+                Book Listing<br />
 
                 <br />
                 &nbsp;Searching By<asp:DropDownList ID="ddlcari" runat="server">
-                    <asp:ListItem>Name</asp:ListItem>
-                    <asp:ListItem Value="IC">NRIC</asp:ListItem>
+                    <asp:ListItem>Title</asp:ListItem>
+                    <asp:ListItem Value="ISBN">ISBN</asp:ListItem>
                 </asp:DropDownList>
                 &nbsp;Value
     <asp:TextBox ID="txcari" runat="server"></asp:TextBox>
                 &nbsp;<asp:Button ID="Button1" runat="server" Text="Find" Width="59px" />
 
-                &nbsp;<asp:Button ID="Button2" runat="server" Text="Submit" Width="59px"
-                    OnClientClick="SetName()" />
+                &nbsp;<input type="button" value="Submit" onclick="SetName();" />
 
                 <br />
 
@@ -49,10 +36,9 @@
                     BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" AllowPaging="True" AllowSorting="True">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
-                        <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" />
-                        <asp:BoundField DataField="IC" HeaderText="NRIC" SortExpression="IC" />
-                        <asp:BoundField DataField="nickname" HeaderText="Nickname" SortExpression="nickname" />
-                        <asp:BoundField DataField="DateJoin" HeaderText="Date Join" DataFormatString="{0:d}" SortExpression="DateJoin" />
+                        <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
+                        <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+                        <asp:BoundField DataField="imprint" HeaderText="imprint" SortExpression="imprint" />
                         <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
                     </Columns>
                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
@@ -65,9 +51,16 @@
                     <SortedDescendingCellStyle BackColor="#F6F0C0" />
                     <SortedDescendingHeaderStyle BackColor="#7E0000" />
                 </asp:GridView>
+
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SearchAuthor" DataTextField="Title" DataValueField="Title" Enabled="False">
+                </asp:DropDownList>
+
+                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SearchAuthor" DataTextField="ISBN" DataValueField="ISBN" Enabled="False">
+                </asp:DropDownList>
+
                 <asp:SqlDataSource ID="SearchAuthor" runat="server"
                     ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>"
-                    SelectCommand="SELECT DISTINCT name, nickname, DateJoin, Status, IC FROM infAuthor ORDER BY name"
+                    SelectCommand="SELECT [Title], [ISBN], [imprint], [Status] FROM [infTitles]"
                     FilterExpression="{1} like '%{0}%'">
 
                     <FilterParameters>
@@ -76,16 +69,20 @@
                             PropertyName="SelectedValue" />
                     </FilterParameters>
                 </asp:SqlDataSource>
-
-                <asp:HiddenField ID="hfIC" runat="server" />
-
-                <asp:HiddenField ID="hfName" runat="server" />
-
-                <asp:HiddenField ID="hfPayTo" runat="server" />
-
             </div>
 
         </div>
     </form>
 </body>
+<script type="text/javascript">
+    function SetName() {
+        if (window.opener != null && !window.opener.closed) {
+            var txtTitle = window.opener.document.getElementById("txtTitle");
+            txtTitle.value = document.getElementById("DropDownList1").value;
+            var txtISBN = window.opener.document.getElementById("txtISBN");
+            txtISBN.value = document.getElementById("DropDownList2").value;
+        }
+        window.close();
+    }
+</script>
 </html>

@@ -113,6 +113,15 @@ Partial Public Class u_Author
     Protected WithEvents lblID As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblDocNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDocNo As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''ddlAuthorType control.
     '''</summary>
     '''<remarks>

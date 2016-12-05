@@ -7,225 +7,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <%--<style type="text/css">
-        table {
-            max-width: 100%;
-            background-color: transparent;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        *,
-        *:before,
-        *:after {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        * {
-            color: #000 !important;
-            text-shadow: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            max-width: 280px;
-        }
-
-        button,
-        input,
-        select[multiple],
-        textarea {
-            background-image: none;
-        }
-
-        input,
-        button,
-        select,
-        textarea {
-            font-family: inherit;
-            font-size: inherit;
-            line-height: inherit;
-        }
-
-        button,
-        input {
-            line-height: normal;
-        }
-
-        button,
-        input,
-        select,
-        textarea {
-            margin: 0;
-            font-family: inherit;
-            font-size: 100%;
-        }
-
-        button,
-        select {
-            text-transform: none;
-        }
-
-        a {
-            color: #428bca;
-            text-decoration: none;
-        }
-
-            a,
-            a:visited {
-                text-decoration: underline;
-            }
-
-        th {
-            text-align: left;
-        }
-
-        button,
-        html input[type="button"],
-        input[type="reset"],
-        input[type="submit"] {
-            cursor: pointer;
-            -webkit-appearance: button;
-        }
-
-        ul,
-        ol {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-    </style>--%>
     <style type="text/css">
-        .auto-style1 {
-            color: #FF0000;
-            font-size: small;
+        #txtTitle {
+            width: 400px;
+        }
+
+        #txtISBN {
+            width: 400px;
         }
     </style>
 </head>
 
 <body>
+
     <form id="form1" runat="server">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <div>
 
             <asp:Panel ID="PanelDetail" runat="server">
                 <table>
                     <tr>
+                        <td>Contract No</td>
+                        <td>:</td>
                         <td>
-                            <asp:ScriptManager ID="ScriptManager1" runat="server">
-                            </asp:ScriptManager>
-                            <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-                                eRoyalties : Create/Update Contract
-                            </div>
-                            <asp:FormView ID="FormView1" runat="server" DataKeyNames="id" DataSourceID="FormView" Width="100%">
-                                <EditItemTemplate>
-                                    Contract No<br />
-                                    <asp:Label ID="idLabel2" runat="server" Text='<%# Eval("ContractNo", "{0}") %>' />
-                                    <br />
-                                    ISBN<br />
-                                    <asp:TextBox ID="ISBNTextBox" runat="server" ReadOnly="true" Text='<%# Bind("ISBN", "{0}") %>' Width="100px" />
-                                    <br />
-                                    Title<br />
-                                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="TitleList" DataTextField="Title" DataValueField="ISBN" SelectedValue='<%# Bind("ISBN") %>'>
-                                    </asp:DropDownList>
-                                    <asp:SqlDataSource ID="TitleList" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT Title, ISBN FROM infTitles WHERE (ISBN = @ISBN)">
-                                        <SelectParameters>
-                                            <asp:ControlParameter ControlID="ISBNTextBox" Name="ISBN" PropertyName="Text" Type="String" />
-                                        </SelectParameters>
-                                    </asp:SqlDataSource>
-                                    <br />
-                                    Contract Date<br />
-                                    <asp:TextBox ID="DateContractTextbox" runat="server" Width="80px" Text='<%# Bind("DateContract", "{0:d}") %>' />
-                                    <cc1:CalendarExtender ID="DateContractTextbox_CalendarExtender" runat="server" BehaviorID="DateContractTextbox_CalendarExtender" TargetControlID="DateContractTextbox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                    Start Date<br />
-                                    <asp:TextBox ID="DateStartTextBox" runat="server" Width="80px" Text='<%# Bind("DateStart", "{0:d}") %>' />
-                                    <cc1:CalendarExtender ID="DateStartTextBox_CalendarExtender" runat="server" BehaviorID="DateStartTextBox_CalendarExtender" TargetControlID="DateStartTextBox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                    End Date<br />
-                                    <asp:TextBox ID="DateEndTextBox" runat="server" Width="80px" Text='<%# Bind("DateEnd", "{0:d}") %>' />
-                                    <cc1:CalendarExtender ID="DateEndTextBox_CalendarExtender" runat="server" BehaviorID="DateEndTextBox_CalendarExtender" TargetControlID="DateEndTextBox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                </EditItemTemplate>
-                                <InsertItemTemplate>
-                                    Contract No<br /><span class="auto-style1"><em><strong>NEW</strong></em></span><br />Title<br />
-                                    <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="ListTitleInsert" DataTextField="Title" DataValueField="ISBN">
-                                    </asp:DropDownList>
-                                    <asp:SqlDataSource ID="ListTitleInsert" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [Title], [ISBN] FROM [infTitles] ORDER BY [Title]"></asp:SqlDataSource>
-                                    <br />
-                                    Contract Date<br />
-                                    <asp:TextBox ID="DateContractTextBox" runat="server" Width="80px" Text='<%# Bind("DateContract", "{0:d}")%>' />
-                                    <cc1:CalendarExtender ID="DateContractTextBox_CalendarExtender" runat="server" BehaviorID="DateContractTextBox_CalendarExtender" TargetControlID="DateContractTextBox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                    Start Date<br />
-                                    <asp:TextBox ID="DateStartTextBox" runat="server" Width="80px" Text='<%# Bind("DateStart", "{0:d}") %>' />
-                                    <cc1:CalendarExtender ID="DateStartTextBox_CalendarExtender" runat="server" BehaviorID="DateStartTextBox_CalendarExtender" TargetControlID="DateStartTextBox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                    End Date<br />
-                                    <asp:TextBox ID="DateEndTextBox" runat="server" Width="80px" Text='<%# Bind("DateEnd", "{0:d}")%>' />
-                                    <cc1:CalendarExtender ID="DateEndTextBox_CalendarExtender" runat="server" BehaviorID="DateEndTextBox_CalendarExtender" TargetControlID="DateEndTextBox" Format="dd/MM/yyyy">
-                                    </cc1:CalendarExtender>
-                                    <br />
-                                </InsertItemTemplate>
-                                <ItemTemplate>
-                                    id:
-                            <asp:Label ID="idLabel" runat="server" Text='<%# Eval("id") %>' />
-                                    <br />
-                                    ISBN<br />
-                                    <asp:Label ID="ISBNLabel" runat="server" Text='<%# Bind("ISBN") %>' />
-                                    <br />
-                                    Contract Date<br />
-                                    <asp:Label ID="DateContractLabel" runat="server" Text='<%# Bind("DateContract", "{0:d}") %>' />
-                                    <br />
-                                    Start<br />
-                                    <asp:Label ID="DateStartLabel" runat="server" Text='<%# Bind("DateStart", "{0:d}")%>' />
-                                    <br />
-                                    End<br />
-                                    <asp:Label ID="DateEndLabel" runat="server" Text='<%# Bind("DateEnd", "{0:d}") %>' />
-                                    <br />
-                                    <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
-                                    &nbsp;<asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
-                                    &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
-                                </ItemTemplate>
-                            </asp:FormView>
-                            <asp:SqlDataSource ID="FormView" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" DeleteCommand="DELETE FROM [infContract] WHERE [id] = @id" InsertCommand="INSERT INTO infContract(ItemCode, ISBN, DateStart, DateEnd, DateContract) VALUES (@ItemCode, @ISBN, CONVERT (datetime, @DateStart, 103), CONVERT (datetime, @DateEnd, 103), CONVERT (datetime, @DateContract, 103))" SelectCommand="SELECT id, ISBN, DateStart, DateEnd, DateContract, ContractNo FROM infContract WHERE (id = @id)" UpdateCommand="UPDATE infContract SET ItemCode = @ItemCode, ISBN = @ISBN, DateStart = CONVERT (datetime, @DateStart, 103), DateEnd = CONVERT (datetime, @DateEnd, 103), DateContract = CONVERT (datetime, @DateContract, 103) WHERE (id = @id)">
-                                <DeleteParameters>
-                                    <asp:Parameter Name="id" Type="Int32" />
-                                </DeleteParameters>
-                                <InsertParameters>
-                                    <asp:Parameter Name="ItemCode" Type="String" />
-                                    <asp:Parameter Name="ISBN" Type="String" />
-                                    <asp:Parameter Name="DateStart" Type="DateTime" />
-                                    <asp:Parameter Name="DateEnd" Type="DateTime" />
-                                    <asp:Parameter Name="DateContract" />
-                                </InsertParameters>
-                                <SelectParameters>
-                                    <asp:QueryStringParameter Name="id" QueryStringField="DocNo" Type="Int32" />
-                                </SelectParameters>
-                                <UpdateParameters>
-                                    <asp:Parameter Name="ItemCode" Type="String" />
-                                    <asp:Parameter Name="ISBN" Type="String" />
-                                    <asp:Parameter Name="DateStart" Type="DateTime" />
-                                    <asp:Parameter Name="DateEnd" Type="DateTime" />
-                                    <asp:Parameter Name="DateContract" />
-                                    <asp:Parameter Name="id" Type="Int32" />
-                                </UpdateParameters>
-                            </asp:SqlDataSource>
+                            <asp:Label ID="txtContract" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
+                        <td>Title</td>
+                        <td>:</td>
                         <td>
+                            <input type="text" id="txtTitle" name="title" readonly="readonly" runat="server" />
+                            <input type="button" value="Select Title" id="btnSearch" runat="server" onclick="SelectName()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ISBN</td>
+                        <td>:</td>
+                        <td>
+                            <input type="text" id="txtISBN" name="isbn" readonly="readonly" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Contract Date</td>
+                        <td>:</td>
+                        <td>
+                            <asp:TextBox ID="txtContractDate" runat="server" Width="80px"></asp:TextBox>
+                            <cc1:CalendarExtender ID="txtContractDate_CalendarExtender" runat="server" BehaviorID="txtContractDate_CalendarExtender" TargetControlID="txtContractDate" Format="dd/MM/yyyy">
+                            </cc1:CalendarExtender>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>:</td>
+                        <td>
+                            <asp:TextBox ID="txtStartDate" runat="server" Width="80px"></asp:TextBox>
+                            <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" BehaviorID="txtStartDate_CalendarExtender" TargetControlID="txtStartDate" Format="dd/MM/yyyy">
+                            </cc1:CalendarExtender>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>:</td>
+                        <td>
+                            <asp:TextBox ID="txtEndDate" runat="server" Width="80px"></asp:TextBox>
+                            <cc1:CalendarExtender ID="txtEndDate_CalendarExtender" runat="server" BehaviorID="txtEndDate_CalendarExtender" TargetControlID="txtEndDate" Format="dd/MM/yyyy">
+                            </cc1:CalendarExtender>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Book</td>
+                        <td>:</td>
+                        <td>
+                            <asp:TextBox ID="txtBook" runat="server" Width="80px"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>eBook</td>
+                        <td>:</td>
+                        <td>
+                            <asp:TextBox ID="txteBook" runat="server" Width="80px"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
                             <asp:LinkButton ID="LinkButton2" runat="server" Visible="False">Get</asp:LinkButton>
                             <asp:GridView ID="gdAuthor0" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CaptionAlign="Top" CellPadding="2" DataSourceID="ListOfAuthor" ForeColor="Black" GridLines="None">
                                 <AlternatingRowStyle BackColor="PaleGoldenrod" />
@@ -256,7 +121,7 @@
                                         </EditItemTemplate>
                                         <ItemTemplate>
                                             <asp:TextBox ID="Name" runat="server"></asp:TextBox>
-                                            <asp:HyperLink ID="hlGet" runat="server">Get</asp:HyperLink>
+                                            <asp:HyperLink ID="ln" runat="server">Get</asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="NRIC">
@@ -286,18 +151,12 @@
                                     <asp:TemplateField HeaderText="Pay To">
                                         <ItemTemplate>
                                             <asp:TextBox ID="PayTo" runat="server" Width="150px"></asp:TextBox>
+                                            <asp:HyperLink ID="ln02" runat="server">Get</asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Book">
+                                    <asp:TemplateField HeaderText="IC">
                                         <ItemTemplate>
-                                            <asp:TextBox ID="Book" runat="server" Width="50px"></asp:TextBox>
-                                            %
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="eBook">
-                                        <ItemTemplate>
-                                            <asp:TextBox ID="eBook" runat="server" Width="50px"></asp:TextBox>
-                                            %
+                                            <asp:TextBox ID="ICPayTo" runat="server"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Advance">
@@ -332,12 +191,14 @@
                             <asp:Button ID="btnSave" runat="server" Text="Save" />
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" />
                             <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-                            <asp:SqlDataSource ID="ListOfAuthor" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT [AuthorName], [IC], [ISBN], [ItemCode], [Type], [Pecentage], [payto] FROM [infTransAuthor] WHERE ([ISBN] = @ISBN)">
+                            <asp:SqlDataSource ID="ListOfAuthor" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT AuthorName, IC, ISBN, ItemCode, Type, Pecentage, payto, contractno FROM infTransAuthor WHERE (contractno = @ContractNo)">
                                 <SelectParameters>
-                                    <asp:QueryStringParameter Name="ISBN" QueryStringField="ISBN" Type="String" />
+                                    <asp:QueryStringParameter Name="ContractNo" QueryStringField="docno" />
                                 </SelectParameters>
                             </asp:SqlDataSource>
                         </td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
                     </tr>
                 </table>
             </asp:Panel>
@@ -345,4 +206,13 @@
         </div>
     </form>
 </body>
+
+<script type="text/javascript">
+    var popup;
+
+    function SelectName() {
+        popup = window.open("BookList.aspx", "Popup", "width=800,height=600");
+        popup.focus();
+    }
+</script>
 </html>

@@ -189,6 +189,7 @@
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="AuthorList.aspx" />
+    <Content Include="BookList.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -240,7 +241,6 @@
     <Content Include="u_Contract.aspx" />
     <Content Include="u_ContractNewUpdate.aspx" />
     <Content Include="u_Payment.aspx" />
-    <Content Include="u_PaymentNewUpdate.aspx" />
     <Content Include="u_Product.aspx" />
     <Content Include="u_Sales.aspx" />
     <Content Include="Web.config" />
@@ -337,6 +337,13 @@
       <DependentUpon>AuthorList.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="BookList.aspx.designer.vb">
+      <DependentUpon>BookList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BookList.aspx.vb">
+      <DependentUpon>BookList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Clss.vb" />
     <Compile Include="Contact.aspx.designer.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -410,13 +417,6 @@
     <Compile Include="u_Payment.aspx.vb">
       <DependentUpon>u_Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="u_PaymentNewUpdate.aspx.designer.vb">
-      <DependentUpon>u_PaymentNewUpdate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="u_PaymentNewUpdate.aspx.vb">
-      <DependentUpon>u_PaymentNewUpdate.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="u_Product.aspx.designer.vb">
       <DependentUpon>u_Product.aspx</DependentUpon>
