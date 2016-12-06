@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Web.Security
+Imports System.IO
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration
@@ -15,6 +16,9 @@ Public Class u_Sales
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
+        If Not Me.Page.User.Identity.IsAuthenticated Then
+            FormsAuthentication.RedirectToLoginPage()
+        End If
         If Not Page.IsPostBack Then
             ddlSalesType.DataBind()
             ddlEntryType.DataBind()

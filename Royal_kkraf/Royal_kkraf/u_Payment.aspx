@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="Others Payment" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Payment.aspx.vb" Inherits="Royal_kkraf.u_Payment" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-        eRoyalties : Others Payment
-    </div>
+   <h2><%: Title %></h2>   
     <asp:Panel ID="PanelGrid" runat="server">
 
         <asp:Label ID="SortExp" runat="server"></asp:Label>
@@ -35,7 +33,7 @@
         <asp:HiddenField ID="hfCode" runat="server" />
     </asp:Panel>
     <asp:Panel ID="PanelDetail" runat="server" Visible="False">
-        <table style="width:100%;">
+        <table style="width: 100%;">
             <tr>
                 <td style="text-align: left; vertical-align: top">Date</td>
                 <td style="text-align: center; vertical-align: top">:</td>
@@ -55,7 +53,7 @@
                 <td style="text-align: left; vertical-align: top">Contract No</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:TextBox ID="txtContNo" runat="server" Width="400px"></asp:TextBox>
+                    <asp:TextBox ID="txtContractNo" runat="server" Width="400px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -63,6 +61,13 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <asp:TextBox ID="txtTitle" runat="server" Width="400px"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left; vertical-align: top">ISBN</td>
+                <td style="text-align: center; vertical-align: top">:</td>
+                <td style="vertical-align: top; text-align: left">
+                    <asp:TextBox ID="txtISBN" runat="server" Width="400px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -117,6 +122,14 @@
                 </td>
             </tr>
         </table>
+        <script type="text/javascript">
+            var popup;
+
+            function SelectName() {
+                popup = window.open("BookList.aspx", "Popup", "width=800,height=600");
+                popup.focus();
+            }
+        </script>
     </asp:Panel>
 </asp:Content>
 

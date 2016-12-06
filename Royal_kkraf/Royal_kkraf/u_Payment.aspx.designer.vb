@@ -131,13 +131,13 @@ Partial Public Class u_Payment
     Protected WithEvents lblDocNo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtContNo control.
+    '''txtContractNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtContNo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtContractNo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtTitle control.
@@ -147,6 +147,15 @@ Partial Public Class u_Payment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtISBN control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtISBN As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''ddlAuthor control.

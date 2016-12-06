@@ -14,38 +14,56 @@ Option Explicit On
 Partial Public Class Register
 
     '''<summary>
-    '''ErrorMessage control.
+    '''txtUsername control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ErrorMessage As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents txtUsername As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Email control.
+    '''txtPassword control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Email As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtPassword As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Password control.
+    '''txtConfirmPassword control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Password As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtConfirmPassword As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''ConfirmPassword control.
+    '''txtEmail control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ConfirmPassword As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtEmail As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''UpdateProgress2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateProgress2 As Global.System.Web.UI.UpdateProgress
+
+    '''<summary>
+    '''UpdateProgress2_AlwaysVisibleControlExtender control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateProgress2_AlwaysVisibleControlExtender As Global.AjaxControlToolkit.AlwaysVisibleControlExtender
 End Class

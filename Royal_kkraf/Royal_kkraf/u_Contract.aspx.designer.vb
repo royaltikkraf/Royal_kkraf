@@ -41,6 +41,15 @@ Partial Public Class u_Contract
     Protected WithEvents lblErrMsg As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''ddlFilter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlFilter As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''txtTitleSearch control.
     '''</summary>
     '''<remarks>

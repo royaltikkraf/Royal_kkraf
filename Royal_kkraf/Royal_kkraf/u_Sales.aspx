@@ -3,9 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-        eRoyalties : Sales
-    </div>
+   <h2><%: Title %></h2>   
     <asp:Panel ID="PanelGrid" runat="server">
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>

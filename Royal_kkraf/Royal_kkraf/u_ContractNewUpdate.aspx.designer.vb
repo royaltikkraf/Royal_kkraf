@@ -149,15 +149,6 @@ Partial Public Class u_ContractNewUpdate
     Protected WithEvents LinkButton2 As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''gdAuthor0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gdAuthor0 As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
     '''gdAuthor control.
     '''</summary>
     '''<remarks>
@@ -210,13 +201,4 @@ Partial Public Class u_ContractNewUpdate
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''ListOfAuthor control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ListOfAuthor As Global.System.Web.UI.WebControls.SqlDataSource
 End Class

@@ -1,10 +1,14 @@
-﻿Public Class u_ContractNewUpdate
+﻿Imports System.Web.Security
+Public Class u_ContractNewUpdate
     Inherits System.Web.UI.Page
 
     Dim ClsAddUpdate As New AddUpdate
     Dim Clss As New Clss
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Me.Page.User.Identity.IsAuthenticated Then
+            FormsAuthentication.RedirectToLoginPage()
+        End If
         If Not IsPostBack Then
             If Request.QueryString("ope") = "Edit" Then
                 Dim DocNo As String = Request.QueryString("docno")
@@ -16,6 +20,7 @@
                 btnSave.Visible = False
                 btnSearch.Visible = False
             Else
+                txtContract.Text = "NEW"
                 btnSearch.Visible = True
                 btnUpdate.Visible = False
                 btnDelete.Visible = False
@@ -28,7 +33,7 @@
     Private Sub SetInitialRow()
         Dim dt As New DataTable()
         Dim dr As DataRow = Nothing
-        dt.Columns.Add(New DataColumn("Name", GetType(String)))
+        dt.Columns.Add(New DataColumn("AuthorName", GetType(String)))
         dt.Columns.Add(New DataColumn("IC", GetType(String)))
         dt.Columns.Add(New DataColumn("Type", GetType(String)))
         dt.Columns.Add(New DataColumn("Pecentage", GetType(String)))
@@ -37,7 +42,7 @@
         dt.Columns.Add(New DataColumn("Advance", GetType(String)))
         dr = dt.NewRow()
 
-        dr("Name") = String.Empty
+        dr("AuthorName") = String.Empty
         dr("IC") = String.Empty
         dr("Type") = String.Empty
         dr("Pecentage") = 0
@@ -62,7 +67,7 @@
             If dt.Rows.Count > 0 Then
 
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("Name"), TextBox)
+                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("AuthorName"), TextBox)
                     Dim box2 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(1).FindControl("IC"), TextBox)
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
@@ -70,7 +75,7 @@
                     Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("ICPayTo"), TextBox)
                     Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
 
-                    box1.Text = dt.Rows(i)("Name").ToString()
+                    box1.Text = dt.Rows(i)("AuthorName").ToString()
                     box2.Text = dt.Rows(i)("IC").ToString()
                     box3.Text = dt.Rows(i)("Type").ToString()
                     box4.Text = dt.Rows(i)("Pecentage").ToString()
@@ -97,9 +102,12 @@
             txtContract.Text = Clss.oContractNo
             txtTitle.Value = Clss.oTitle
             txtISBN.Value = Clss.oISBN
-            txtContractDate.Text = Clss.oDateContract
-            txtStartDate.Text = Clss.oDateStart
-            txtEndDate.Text = Clss.oDateEnd
+            'txtContractDate.Text = Clss.oDateContract
+            txtContractDate.Text = Convert.ToDateTime(Clss.oDateContract).ToString("dd/MM/yyyy")
+            'txtStartDate.Text = Clss.oDateStart
+            txtStartDate.Text = Convert.ToDateTime(Clss.oDateStart).ToString("dd/MM/yyyy")
+            'txtEndDate.Text = Clss.oDateEnd
+            txtEndDate.Text = Convert.ToDateTime(Clss.oDateEnd).ToString("dd/MM/yyyy")
             txtBook.Text = Clss.oBook
             txteBook.Text = Clss.oeBook
         End If
@@ -147,7 +155,7 @@
             Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
             If dt.Rows.Count > 0 Then
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("Name"), TextBox)
+                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("AuthorName"), TextBox)
                     Dim box2 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(1).FindControl("IC"), TextBox)
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
@@ -155,7 +163,7 @@
                     Dim box6 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(4).FindControl("ICPayTo"), TextBox)
                     Dim box8 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(5).FindControl("Advance"), TextBox)
 
-                    box1.Text = dt.Rows(i)("Name").ToString()
+                    box1.Text = dt.Rows(i)("AuthorName").ToString()
                     box2.Text = dt.Rows(i)("IC").ToString()
                     box3.Text = dt.Rows(i)("Type").ToString()
                     box4.Text = dt.Rows(i)("Pecentage").ToString()
@@ -183,7 +191,7 @@
             If dtCurrentTable.Rows.Count > 0 Then
                 For i As Integer = 1 To dtCurrentTable.Rows.Count
                     'extract the TextBox values
-                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("Name"), TextBox)
+                    Dim box1 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(0).FindControl("AuthorName"), TextBox)
                     Dim box2 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(1).FindControl("IC"), TextBox)
                     Dim box3 As DropDownList = DirectCast(gdAuthor.Rows(rowIndex).Cells(2).FindControl("Type"), DropDownList)
                     Dim box4 As TextBox = DirectCast(gdAuthor.Rows(rowIndex).Cells(3).FindControl("Pecentage"), TextBox)
@@ -193,7 +201,7 @@
 
                     drCurrentRow = dtCurrentTable.NewRow()
                     '  drCurrentRow("RowNumber") = i + 1
-                    dtCurrentTable.Rows(i - 1)("Name") = box1.Text
+                    dtCurrentTable.Rows(i - 1)("AuthorName") = box1.Text
                     dtCurrentTable.Rows(i - 1)("IC") = box2.Text
                     dtCurrentTable.Rows(i - 1)("Type") = box3.SelectedValue
                     dtCurrentTable.Rows(i - 1)("Pecentage") = box4.Text
@@ -232,7 +240,7 @@
             ln = e.Row.FindControl("ln")
             ln02 = e.Row.FindControl("ln02")
 
-            Name = e.Row.FindControl("Name").ClientID
+            Name = e.Row.FindControl("AuthorName").ClientID
             IC = e.Row.FindControl("IC").ClientID
 
             PayTo = e.Row.FindControl("PayTo").ClientID

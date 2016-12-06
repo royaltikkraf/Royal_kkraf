@@ -198,6 +198,7 @@
     <Content Include="image\add.png" />
     <Content Include="image\btnClose.png" />
     <Content Include="image\search.png" />
+    <Content Include="image\update_Progress.gif" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -243,6 +244,7 @@
     <Content Include="u_Payment.aspx" />
     <Content Include="u_Product.aspx" />
     <Content Include="u_Sales.aspx" />
+    <Content Include="VB_Activation.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <None Include="Project_Readme.html" />
@@ -430,6 +432,13 @@
     </Compile>
     <Compile Include="u_Sales.aspx.vb">
       <DependentUpon>u_Sales.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="VB_Activation.aspx.designer.vb">
+      <DependentUpon>VB_Activation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VB_Activation.aspx.vb">
+      <DependentUpon>VB_Activation.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.vb">

@@ -3,14 +3,16 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-        eRoyalties : Contracts
-    </div>
+   <h2><%: Title %></h2>   
     <asp:Panel ID="PanelGrid" runat="server">
 
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
         <br />
+        <asp:DropDownList ID="ddlFilter" runat="server">
+            <asp:ListItem Value="ContractNo">Contract No</asp:ListItem>
+            <asp:ListItem>Title</asp:ListItem>
+        </asp:DropDownList>
         <asp:TextBox ID="txtTitleSearch" runat="server" BackColor="#FFFF99" ToolTip="SEARCH TITLE" Width="250px"></asp:TextBox>
         <asp:ImageButton ID="iBtnSearch" runat="server" ImageAlign="Top" ImageUrl="~/image/search.png" Width="28px" />
         <asp:DataGrid ID="Senarai" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="Black" GridLines="Horizontal" HeaderStyle-BackColor="Blue" HeaderStyle-ForeColor="White" PagerStyle-Visible="True" Style="border-right: black thin solid; border-top: black thin solid; border-left: black thin solid; border-bottom: black thin solid" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" HorizontalAlign="Justify">

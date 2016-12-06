@@ -1,4 +1,5 @@
-﻿Imports System.Data
+﻿Imports System.Web.Security
+Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
@@ -13,6 +14,9 @@ Public Class u_Product
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
+        If Not Me.Page.User.Identity.IsAuthenticated Then
+            FormsAuthentication.RedirectToLoginPage()
+        End If
         If Not Page.IsPostBack Then
 
             ddlCategory.DataBind()

@@ -11,14 +11,23 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Login
+Partial Public Class VB_Activation
 
     '''<summary>
-    '''Login1 control.
+    '''form1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Login1 As Global.System.Web.UI.WebControls.Login
+    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
+
+    '''<summary>
+    '''ltMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ltMessage As Global.System.Web.UI.WebControls.Literal
 End Class

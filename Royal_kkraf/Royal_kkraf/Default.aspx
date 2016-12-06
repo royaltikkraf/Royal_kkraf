@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <h1>eRoyalties</h1>
         <p class="lead">Welcome to eRoyalties Page</p>
-        <p><a href="/u_Author" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p><a href="u_Author" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
     <div class="row">

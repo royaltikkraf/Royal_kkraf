@@ -3,10 +3,11 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <!DOCTYPE html>
-
+<h2><%: Title %></h2>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head runat="server">
-    <title></title>
+    <title>Contract</title>
     <style type="text/css">
         #txtTitle {
             width: 400px;
@@ -92,26 +93,6 @@
                     <tr>
                         <td colspan="3">
                             <asp:LinkButton ID="LinkButton2" runat="server" Visible="False">Get</asp:LinkButton>
-                            <asp:GridView ID="gdAuthor0" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CaptionAlign="Top" CellPadding="2" DataSourceID="ListOfAuthor" ForeColor="Black" GridLines="None">
-                                <AlternatingRowStyle BackColor="PaleGoldenrod" />
-                                <Columns>
-                                    <asp:BoundField DataField="AuthorName" HeaderText="Author" SortExpression="AuthorName" />
-                                    <asp:BoundField DataField="IC" HeaderText="NRIC" SortExpression="IC" />
-                                    <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
-                                    <asp:BoundField DataField="Type" HeaderText="Type" SortExpression="Type" />
-                                    <asp:BoundField DataField="Pecentage" HeaderText="Pecentage" SortExpression="Pecentage" />
-                                    <asp:BoundField DataField="payto" HeaderText="Pay To" SortExpression="payto" />
-                                </Columns>
-                                <FooterStyle BackColor="Tan" />
-                                <HeaderStyle BackColor="Tan" Font-Bold="True" />
-                                <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
-                                <RowStyle HorizontalAlign="Justify" VerticalAlign="Top" />
-                                <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-                                <SortedAscendingCellStyle BackColor="#FAFAE7" />
-                                <SortedAscendingHeaderStyle BackColor="#DAC09E" />
-                                <SortedDescendingCellStyle BackColor="#E1DB9C" />
-                                <SortedDescendingHeaderStyle BackColor="#C2A47B" />
-                            </asp:GridView>
                             <asp:GridView ID="gdAuthor" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" CaptionAlign="Top">
                                 <AlternatingRowStyle BackColor="PaleGoldenrod" />
                                 <Columns>
@@ -120,7 +101,7 @@
                                             <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("AuthorName") %>'></asp:TextBox>
                                         </EditItemTemplate>
                                         <ItemTemplate>
-                                            <asp:TextBox ID="Name" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="AuthorName" runat="server"></asp:TextBox>
                                             <asp:HyperLink ID="ln" runat="server">Get</asp:HyperLink>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -191,11 +172,6 @@
                             <asp:Button ID="btnSave" runat="server" Text="Save" />
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" />
                             <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-                            <asp:SqlDataSource ID="ListOfAuthor" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT AuthorName, IC, ISBN, ItemCode, Type, Pecentage, payto, contractno FROM infTransAuthor WHERE (contractno = @ContractNo)">
-                                <SelectParameters>
-                                    <asp:QueryStringParameter Name="ContractNo" QueryStringField="docno" />
-                                </SelectParameters>
-                            </asp:SqlDataSource>
                         </td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>

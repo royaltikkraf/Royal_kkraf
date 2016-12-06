@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
 Imports System.Threading
+Imports System.Web.Security
 
 Public Class u_Author
     Inherits System.Web.UI.Page
@@ -13,6 +14,10 @@ Public Class u_Author
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
+        If Not Me.Page.User.Identity.IsAuthenticated Then
+            FormsAuthentication.RedirectToLoginPage()
+        End If
+
         If Not Page.IsPostBack Then
 
             ddlStatus.DataBind()

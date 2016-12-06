@@ -1,4 +1,5 @@
-﻿Imports System.Data
+﻿Imports System.Web.Security
+Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
@@ -14,6 +15,9 @@ Public Class u_Payment
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-CA")
+        If Not Me.Page.User.Identity.IsAuthenticated Then
+            FormsAuthentication.RedirectToLoginPage()
+        End If
         If Not Page.IsPostBack Then
             ddlPaymentType.DataBind()
             ddlAuthor.DataBind()
@@ -27,6 +31,61 @@ Public Class u_Payment
         End If
 
     End Sub
+
+    Function SortOrder(ByVal Field As String) As String
+        Dim so As String = SortExp.Text
+        If Field = so Then
+            SortOrder = Replace(Field, "asc", "desc")
+        Else
+            SortOrder = Replace(Field, "desc", "asc")
+        End If
+    End Function
+
+    Private Sub Status_PageChange(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridPageChangedEventArgs) Handles Senarai.PageIndexChanged
+        Senarai.CurrentPageIndex = e.NewPageIndex
+        Dim dt As DataTable = TryCast(ViewState("Senarai"), DataTable)
+        dt.DefaultView.Sort = ViewState("sorting")
+        Senarai.DataSource = ViewState("Senarai")
+        Senarai.DataBind()
+
+    End Sub
+
+    Private Sub Status_Sort(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridSortCommandEventArgs) Handles Senarai.SortCommand
+        Senarai.CurrentPageIndex = 0
+        Dim dt As DataTable
+        dt = TryCast(ViewState("Senarai"), DataTable)
+        dt.DefaultView.Sort = String.Format("{0} {1}", e.SortExpression, GetSortDirection(e.SortExpression)) 'a_Exec ASC
+        ViewState.Add("sorting", dt.DefaultView.Sort)
+        Senarai.DataSource = ViewState("Senarai")
+        'dt = ViewState("data")
+        Senarai.DataBind()
+        ViewState.Add("data", dt)
+    End Sub
+
+    Private Function GetSortDirection(ByVal column As String) As String
+        ' By default, set the sort direction to ascending.
+        Dim sortDirection = "ASC"
+        ' Retrieve the last column that was sorted.
+        Dim sortExpression = TryCast(ViewState("SortExpression"), String)
+        If sortExpression IsNot Nothing Then
+            ' Check if the same column is being sorted.
+            ' Otherwise, the default value can be returned.
+            If sortExpression = column Then
+                Dim lastDirection = TryCast(ViewState("SortDirection"), String)
+                If lastDirection IsNot Nothing _
+                  AndAlso lastDirection = "ASC" Then
+
+                    sortDirection = "DESC"
+
+                End If
+            End If
+        End If
+
+        ' Save new values in ViewState.
+        ViewState("SortDirection") = sortDirection
+        ViewState("SortExpression") = column
+        Return sortDirection
+    End Function
 
     Function LoadGridPayment(ByVal SortField As String, ByVal SQuery As String) As Boolean
         Dim dT As DataTable
@@ -63,7 +122,7 @@ Public Class u_Payment
     Function ClearDetailPayment() As Boolean
         lblDate.Text = Today
         lblDocNo.Text = "NEW"
-        txtContNo.Text = ""
+        txtContractNo.Text = ""
         ddlAuthor.DataBind()
         ddlPayTo.DataBind()
         ddlPaymentType.DataBind()
@@ -79,7 +138,7 @@ Public Class u_Payment
             lblDocNo.Text = Clss.oDocNo
             SQLQuery = "INSERT INTO infOthersPayment(Date, Author, PayTo, TypePayment, Value, Note, DocNo, ContractNo, AuthorIC, PayToIC, CodePaymentType)VALUES(convert(datetime,'" & _
                 lblDate.Text & "',103), '" & ddlAuthor.SelectedItem.Text & "', '" & ddlPayTo.SelectedItem.Text & "', '" & ddlPaymentType.SelectedItem.Text & "', '" & _
-                txtAmount.Text & "', '" & txtNote.Text & "', '" & lblDocNo.Text & "', '" & txtContNo.Text & "', '" & ddlAuthor.SelectedValue & "', '" & ddlPayTo.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "'); UPDATE ConfDocControl set Description='" & Clss.oConCurrNumber & "' where SetupName='DOCNO' and itemname='PAY'"
+                txtAmount.Text & "', '" & txtNote.Text & "', '" & lblDocNo.Text & "', '" & txtContractNo.Text & "', '" & ddlAuthor.SelectedValue & "', '" & ddlPayTo.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "'); UPDATE ConfDocControl set Description='" & Clss.oConCurrNumber & "' where SetupName='DOCNO' and itemname='PAY'"
             Result = Clss.ExecuteNonQuery(SQLQuery)
             If Result = True Then
                 ShowPopUpMsg("Succes : SAVE Data")
@@ -130,7 +189,7 @@ Public Class u_Payment
             ddlAuthor.SelectedValue = Clss.oIC
             ddlPayTo.SelectedValue = Clss.oPayTo
             ddlPaymentType.SelectedValue = Clss.oPaymentType
-            txtContNo.Text = Clss.oContractNo
+            txtContractNo.Text = Clss.oContractNo
             txtAmount.Text = Clss.oAmount
             txtNote.Text = Clss.oNota
 
@@ -156,7 +215,7 @@ Public Class u_Payment
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Dim SQLQuery As String
-        SQLQuery = "UPDATE infOthersPayment SET ContractNo='" & txtContNo.Text & "', Value='" & txtAmount.Text & "', Note='" & txtNote.Text & "' WHERE (id = " & lblID.Text & ")"
+        SQLQuery = "UPDATE infOthersPayment SET ContractNo='" & txtContractNo.Text & "', Value='" & txtAmount.Text & "', Note='" & txtNote.Text & "' WHERE (id = " & lblID.Text & ")"
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = True Then
             ShowPopUpMsg("Succes : UPDATE Data")

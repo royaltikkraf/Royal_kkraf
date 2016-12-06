@@ -1,10 +1,8 @@
-﻿<%@ Page Title="Author" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Author.aspx.vb" Inherits="Royal_kkraf.u_Author" %>
+﻿<%@ Page Title="Author/Agency/Benefeciary" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Author.aspx.vb" Inherits="Royal_kkraf.u_Author" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="border-style: solid; border-width: 1px; vertical-align: super; font-family: Andalus; font-size: x-large; font-weight: bold; background-color: #FFFFFF; text-align: center;">
-        eRoyalties : Authors/Agency/Benefeciary
-    </div>
+    <h2><%: Title %></h2>   
     <asp:Panel ID="PanelGrid" runat="server">
 
         <asp:Label ID="lblStaffID" runat="server"></asp:Label>
@@ -172,8 +170,7 @@
                 <td>
                     <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="MethodPayment" DataValueField="MethodPayment" Width="280px">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT MethodPayment FROM ConfBankName  ORDER BY MethodPayment">
-                    </asp:SqlDataSource>
+                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT MethodPayment FROM ConfBankName  ORDER BY MethodPayment"></asp:SqlDataSource>
                 </td>
             </tr>
             <tr>

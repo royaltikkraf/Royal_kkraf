@@ -116,7 +116,7 @@ Public Class AddUpdate
     End Function
 
     Function loaddetail(ByVal docno As String) As DataTable
-        If getresult("select * from InfTransAuthor where id=" & docno & "") Then
+        If getresult("select * from InfTransAuthor where ContractNo='" & docno & "'") Then
             Return getresultdata
         End If
     End Function
