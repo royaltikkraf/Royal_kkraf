@@ -13,11 +13,30 @@
             itemcode.value = document.getElementById("hfIC").value;
             var itemdesc = window.opener.document.getElementById("<%= request.querystring("Name") %>");
             itemdesc.value = document.getElementById("hfName").value;
-          <%--  var PayTo = window.opener.document.getElementById("<%= Request.QueryString("PayTo")%>");
-            PayTo.value = document.getElementById("hfName").value;--%>
         }
+
         window.close();
+
+
     }
+    function updateParent() {
+        if (window.opener != null && !window.opener.closed) {
+
+            var sType = document.getElementById("hfType").value;
+            var oVal = document.getElementById('hfName').value;
+            var oVal02 = document.getElementById('hfIC').value;            
+
+            if (sType == "Author") {
+                window.opener.setValueAuthor(oVal, oVal02);
+            }
+            else if (sType == "Pay") {
+                window.opener.setValuePay(oVal, oVal02);
+            }
+            window.close();
+            return false;
+        }
+    }
+
 </script>
 <body>
     <form id="form1" runat="server">
@@ -37,23 +56,26 @@
                 </asp:DropDownList>
                 &nbsp;Value
     <asp:TextBox ID="txcari" runat="server"></asp:TextBox>
-                &nbsp;<asp:Button ID="Button1" runat="server" Text="Find" Width="59px" />
+                &nbsp;<asp:Button ID="btnFind" runat="server" Text="Find" Width="59px" />
 
-                &nbsp;<asp:Button ID="Button2" runat="server" Text="Submit" Width="59px"
+                <asp:Button ID="Button2" runat="server" Text="Submit" Width="59px"
                     OnClientClick="SetName()" />
+
+                <asp:Button ID="Button3" runat="server" Text="Submit" Width="59px"
+                    OnClientClick="updateParent()" />
 
                 <br />
 
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                    DataSourceID="SearchAuthor" BackColor="White"
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White"
                     BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" AllowPaging="True" AllowSorting="True">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
                         <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" />
-                        <asp:BoundField DataField="IC" HeaderText="NRIC" SortExpression="IC" />
                         <asp:BoundField DataField="nickname" HeaderText="Nickname" SortExpression="nickname" />
+                        <asp:BoundField DataField="IC" HeaderText="NRIC" SortExpression="IC" />
                         <asp:BoundField DataField="DateJoin" HeaderText="Date Join" DataFormatString="{0:d}" SortExpression="DateJoin" />
                         <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
+                        <asp:BoundField DataField="AuthorType" HeaderText="Type" SortExpression="Type" />
                     </Columns>
                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -65,9 +87,10 @@
                     <SortedDescendingCellStyle BackColor="#F6F0C0" />
                     <SortedDescendingHeaderStyle BackColor="#7E0000" />
                 </asp:GridView>
+                <asp:Label ID="SortExp" runat="server"></asp:Label>
                 <asp:SqlDataSource ID="SearchAuthor" runat="server"
                     ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>"
-                    SelectCommand="SELECT DISTINCT name, nickname, DateJoin, Status, IC FROM infAuthor ORDER BY name"
+                    SelectCommand="SELECT DISTINCT name, nickname, IC, DateJoin, Status, AuthorType AS Type FROM infAuthor ORDER BY name"
                     FilterExpression="{1} like '%{0}%'">
 
                     <FilterParameters>
@@ -82,6 +105,8 @@
                 <asp:HiddenField ID="hfName" runat="server" />
 
                 <asp:HiddenField ID="hfPayTo" runat="server" />
+
+                <asp:HiddenField ID="hfType" runat="server" />
 
             </div>
 

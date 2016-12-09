@@ -57,6 +57,7 @@ Public Class Clss
     Dim PaymentType As String
     Dim AuthorType As String
     Dim PayTo As String
+    Dim PayToIC As String
     Dim DocNo As String
 
 
@@ -237,6 +238,15 @@ Public Class Clss
         End Get
         Set(ByVal value As String)
             DocNo = value
+        End Set
+    End Property
+
+    Public Property oPayToIC() As String
+        Get
+            oPayToIC = PayToIC
+        End Get
+        Set(ByVal value As String)
+            PayToIC = value
         End Set
     End Property
 
@@ -767,11 +777,15 @@ Public Class Clss
             dr = comm.ExecuteReader()
             If dr.Read Then
                 ContractNo = dr("ContractNo").ToString
+                ISBN = dr("ISBN").ToString
+                Name = dr("Author").ToString
                 IC = dr("AuthorIC").ToString
-                PayTo = dr("PayToIC").ToString
+                PayToIC = dr("PayToIC").ToString
+                PayTo = dr("PayTo").ToString
                 DocNo = dr("DocNo").ToString
                 ContractNo = dr("ContractNo").ToString
                 DateStart = dr("Date").ToString
+                DateJoin = dr("PaymentDate").ToString
                 Nota = dr("Note").ToString
                 PaymentType = dr("CodePaymentType").ToString
                 Amount = dr("Value").ToString
@@ -822,8 +836,8 @@ Public Class Clss
 
             End Select
             Comm = New SqlCommand(SQLQuery, Conn)
-            If conn.State = ConnectionState.Closed Then conn.Open()
-            dr = comm.ExecuteReader
+            If Conn.State = ConnectionState.Closed Then Conn.Open()
+            dr = Comm.ExecuteReader
             If dr.Read Then
                 '   curnilai = dr.Item(0).ToString
                 pDocNo = nilai + "-" + rTarikh + putdocno(dr.Item(0).ToString)
@@ -835,12 +849,12 @@ Public Class Clss
 
 
             dr.Close()
-            comm.Dispose()
+            Comm.Dispose()
 
             Return ret
         Catch ex As Exception
             dr.Close()
-            comm.Dispose()
+            Comm.Dispose()
             ErrMsg = ex.Message
             Return False
         End Try
@@ -873,19 +887,19 @@ Public Class Clss
                     SQLQuery = "select DocNo from infOthersPayment where DocNo='" & nil & "'"
             End Select
             Comm = New SqlCommand(SQLQuery, Conn)
-            If conn.State = ConnectionState.Closed Then conn.Open()
-            dr = comm.ExecuteReader
+            If Conn.State = ConnectionState.Closed Then Conn.Open()
+            dr = Comm.ExecuteReader
             If dr.Read Then
                 ret = True
             Else
                 ret = False
             End If
             dr.Close()
-            comm.Dispose()
+            Comm.Dispose()
             Return ret
         Catch ex As Exception
             dr.Close()
-            comm.Dispose()
+            Comm.Dispose()
             ErrMsg = ex.Message
             Return False
         End Try

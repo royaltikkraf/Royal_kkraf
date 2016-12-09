@@ -194,6 +194,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="ContractList.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="image\add.png" />
     <Content Include="image\btnClose.png" />
@@ -352,6 +353,13 @@
     </Compile>
     <Compile Include="Contact.aspx.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="ContractList.aspx.designer.vb">
+      <DependentUpon>ContractList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContractList.aspx.vb">
+      <DependentUpon>ContractList.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.vb">

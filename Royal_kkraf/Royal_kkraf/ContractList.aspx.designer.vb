@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class AuthorList
+Partial Public Class ContractList
 
     '''<summary>
     '''form1 control.
@@ -41,31 +41,13 @@ Partial Public Class AuthorList
     Protected WithEvents txcari As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnFind control.
+    '''Button1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnFind As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Button2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Button3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button3 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''GridView1 control.
@@ -77,56 +59,38 @@ Partial Public Class AuthorList
     Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''SortExp control.
+    '''DropDownList1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents SortExp As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''SearchAuthor control.
+    '''DropDownList2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents SearchAuthor As Global.System.Web.UI.WebControls.SqlDataSource
+    Protected WithEvents DropDownList2 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''hfIC control.
+    '''DropDownList3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hfIC As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents DropDownList3 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''hfName control.
+    '''SearchContract control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hfName As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''hfPayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hfPayTo As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''hfType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hfType As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents SearchContract As Global.System.Web.UI.WebControls.SqlDataSource
 End Class

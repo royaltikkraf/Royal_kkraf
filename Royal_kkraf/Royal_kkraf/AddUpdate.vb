@@ -75,7 +75,7 @@ Public Class AddUpdate
             Comm.ExecuteNonQuery()
 
             For Each row As DataRow In Rectable.Rows
-                Name = row.Item("Name").ToString
+                Name = row.Item("AuthorName").ToString
                 If Name <> "" Then
                     IC = row.Item("IC").ToString
                     TypeP = row.Item("Type").ToString
@@ -123,9 +123,7 @@ Public Class AddUpdate
 
     Function getresult(ByVal sql As String) As Boolean
         Try
-
             Dim comm = New SqlCommand(sql, Conn)
-
             If Conn.State = ConnectionState.Closed Then Conn.Open()
 
             Dim ds = New DataSet
@@ -144,8 +142,6 @@ Public Class AddUpdate
             RetMsg = ex.Message
             Return False
         End Try
-
-
     End Function
 
     Function locexist(ByVal loc As String) As Boolean

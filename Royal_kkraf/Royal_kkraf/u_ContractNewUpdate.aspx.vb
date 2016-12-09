@@ -96,7 +96,7 @@ Public Class u_ContractNewUpdate
     Private Sub SetEditDataForm(ContractNo As String)
         Dim SqlQuery As String
         Dim Result As Boolean
-        SqlQuery = "Select * FROm infContract Where ContractNo ='" & ContractNo & "'"
+        SqlQuery = "Select * FROM infContract Where ContractNo ='" & ContractNo & "'"
         Result = Clss.ExecuteNonQuery_Contract(SqlQuery)
         If Result = True Then
             txtContract.Text = Clss.oContractNo
@@ -247,10 +247,10 @@ Public Class u_ContractNewUpdate
             ICPayTo = e.Row.FindControl("ICPayTo").ClientID
 
             If ln.Text = "Get" Then
-                ln.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + Name + "&IC=" + IC & "','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
+                ln.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + Name + "&IC=" + IC & "&Type=Author','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
             End If
             If ln02.Text = "Get" Then
-                ln02.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + PayTo + "&IC=" + ICPayTo + "','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
+                ln02.NavigateUrl = "javascript:calendar_window=window.open('Authorlist.aspx?Name=" + PayTo + "&IC=" + ICPayTo + "&Type=PayTo','calendar','width=800,height=700,top=200,left=400');calendar_window.focus()"
             End If
         End If
     End Sub

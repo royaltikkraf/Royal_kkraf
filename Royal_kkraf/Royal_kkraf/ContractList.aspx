@@ -1,10 +1,10 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="BookList.aspx.vb" Inherits="Royal_kkraf.BookList" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ContractList.aspx.vb" Inherits="Royal_kkraf.ContractList" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>List of Book</title>
+    <title>List of Contract</title>
 </head>
 
 <body>
@@ -17,8 +17,8 @@
                 Book Listing<br />
                 <br />
                 &nbsp;Searching By<asp:DropDownList ID="ddlcari" runat="server">
+                    <asp:ListItem Value="ContractNo">Contract No</asp:ListItem>
                     <asp:ListItem>Title</asp:ListItem>
-                    <asp:ListItem Value="ISBN">ISBN</asp:ListItem>
                 </asp:DropDownList>&nbsp;Value<asp:TextBox ID="txcari" runat="server"></asp:TextBox>
                 &nbsp;<asp:Button ID="Button1" runat="server" Text="Find" Width="59px" />
 
@@ -26,14 +26,16 @@
                 <br />
 
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                    DataSourceID="SearchAuthor" BackColor="White"
+                    DataSourceID="SearchContract" BackColor="White"
                     BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" AllowPaging="True" AllowSorting="True">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
+                        <asp:BoundField DataField="ContractNo" HeaderText="ContractNo" SortExpression="ContractNo" />
                         <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                         <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
-                        <asp:BoundField DataField="imprint" HeaderText="imprint" SortExpression="imprint" />
-                        <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
+                        <asp:BoundField DataField="DateContract" DataFormatString="{0:d}" HeaderText="DateContract" SortExpression="DateContract" />
+                        <asp:BoundField DataField="DateStart" DataFormatString="{0:d}" HeaderText="DateStart" SortExpression="DateStart" />
+                        <asp:BoundField DataField="DateEnd" HeaderText="DateEnd" SortExpression="DateEnd" DataFormatString="{0:d}" />
                     </Columns>
                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -46,15 +48,18 @@
                     <SortedDescendingHeaderStyle BackColor="#7E0000" />
                 </asp:GridView>
 
-                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SearchAuthor" DataTextField="Title" DataValueField="Title" Enabled="False">
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SearchContract" DataTextField="ContractNo" DataValueField="ContractNo" Enabled="False">
                 </asp:DropDownList>
 
-                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SearchAuthor" DataTextField="ISBN" DataValueField="ISBN" Enabled="False">
+                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SearchContract" DataTextField="Title" DataValueField="Title" Enabled="False">
                 </asp:DropDownList>
 
-                <asp:SqlDataSource ID="SearchAuthor" runat="server"
+                <asp:DropDownList ID="DropDownList3" runat="server" DataSourceID="SearchContract" DataTextField="ISBN" DataValueField="ISBN" Enabled="False">
+                </asp:DropDownList>
+
+                <asp:SqlDataSource ID="SearchContract" runat="server"
                     ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>"
-                    SelectCommand="SELECT [Title], [ISBN], [imprint], [Status] FROM [infTitles]"
+                    SelectCommand="SELECT DISTINCT ContractNo, Title, ISBN, DateContract, DateStart, DateEnd FROM vw_infContract_Link"
                     FilterExpression="{1} like '%{0}%'">
 
                     <FilterParameters>
@@ -81,10 +86,11 @@
 
     function updateParent() {
 
-        var oVal = document.getElementById('DropDownList1').value;
-        var oVal02 = document.getElementById('DropDownList2').value;
+        var oContractNo = document.getElementById('DropDownList1').value;
+        var oTitle = document.getElementById('DropDownList2').value;
+        var oISBN = document.getElementById('DropDownList3').value;
 
-        window.opener.setValueTitle(oVal, oVal02);
+        window.opener.setValueContractNo(oContractNo, oTitle, oISBN);
 
         window.close();
 

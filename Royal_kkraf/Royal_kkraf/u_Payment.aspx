@@ -1,7 +1,9 @@
 ﻿<%@ Page Title="Others Payment" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Payment.aspx.vb" Inherits="Royal_kkraf.u_Payment" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <h2><%: Title %></h2>   
+    <h2><%: Title %></h2>
     <asp:Panel ID="PanelGrid" runat="server">
 
         <asp:Label ID="SortExp" runat="server"></asp:Label>
@@ -50,50 +52,80 @@
                 </td>
             </tr>
             <tr>
+                <td style="text-align: left; vertical-align: top">Payment Date</td>
+                <td style="text-align: center; vertical-align: top">:</td>
+                <td style="vertical-align: top; text-align: left">
+                    <asp:TextBox ID="txtPaymentDate" runat="server" Width="400px"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtPaymentDate_CalendarExtender" runat="server" BehaviorID="txtPaymentDate_CalendarExtender" Format="dd/MM/yyyy" TargetControlID="txtPaymentDate">
+                    </ajaxToolkit:CalendarExtender>
+                </td>
+            </tr>
+            <tr>
                 <td style="text-align: left; vertical-align: top">Contract No</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:TextBox ID="txtContractNo" runat="server" Width="400px"></asp:TextBox>
+                    <input id="txtContractNo" type="text" readonly="readonly" name="ContractNo" runat="server" />
+                    <button id="btnContract" runat="server" onclick="openContract()">
+                        Contract
+                    </button>
                 </td>
             </tr>
             <tr>
                 <td style="text-align: left; vertical-align: top">Title</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:TextBox ID="txtTitle" runat="server" Width="400px"></asp:TextBox>
+                    <input id="txtTitle" type="text" readonly="readonly" name="Title" runat="server" />
                 </td>
             </tr>
             <tr>
                 <td style="text-align: left; vertical-align: top">ISBN</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:TextBox ID="txtISBN" runat="server" Width="400px"></asp:TextBox>
+                    <input id="txtISBN" type="text" readonly="readonly" name="ISBN" runat="server" />
                 </td>
             </tr>
             <tr>
                 <td style="text-align: left; vertical-align: top">Author</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:DropDownList ID="ddlAuthor" runat="server" DataSourceID="AuthorList" DataTextField="name" DataValueField="IC" Width="285px">
-                    </asp:DropDownList>
+                    <input id="txtAuthor" type="text" readonly="readonly" name="Author" runat="server" />
+                     <button id="btnAuthor" runat="server" onclick="openContract()">
+                        Author
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left; vertical-align: top">Author IC</td>
+                <td style="text-align: center; vertical-align: top">:</td>
+                <td style="vertical-align: top; text-align: left">
+                    <input id="txtAuthorIC" runat="server" name="AuthorIC" readonly="readonly" type="text" />
                 </td>
             </tr>
             <tr>
                 <td style="text-align: left; vertical-align: top">Pay To</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:DropDownList ID="ddlPayTo" runat="server" DataSourceID="AuthorList" DataTextField="name" DataValueField="IC" Width="285px" AutoPostBack="True">
-                    </asp:DropDownList>
+                    <input id="txtPayto" type="text" readonly="readonly" name="PayTo" runat="server" />
+                     <button id="btnPayTo" runat="server" onclick="openContract()">
+                        Pay To
+                    </button>
                 </td>
             </tr>
             <tr>
-                <td style="text-align: left; vertical-align: top">Payment Type</td>
+                <td style="text-align: left; vertical-align: top">Pay To (IC)</td>
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
-                    <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="Desc" DataValueField="Name" Width="285px">
-                    </asp:DropDownList>
+                    <input id="txtPaytoIC" type="text" readonly="readonly" name="PayToIC" runat="server" />
                 </td>
-            </tr>
+
+                <tr>
+                    <td style="text-align: left; vertical-align: top">Payment Type</td>
+                    <td style="text-align: center; vertical-align: top">:</td>
+                    <td style="vertical-align: top; text-align: left">
+                        <asp:DropDownList ID="ddlPaymentType" runat="server" DataSourceID="PaymentType" DataTextField="Desc" DataValueField="Name" Width="285px">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
             <tr>
                 <td style="text-align: left; vertical-align: top">Amount(RM)</td>
                 <td style="text-align: center; vertical-align: top">:</td>
@@ -111,6 +143,24 @@
                 </td>
             </tr>
             <tr>
+                <td style="text-align: left; vertical-align: top" colspan="3">
+                    <asp:DataGrid ID="SenaraiPayment" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="Black" GridLines="Horizontal" HeaderStyle-BackColor="Blue" HeaderStyle-ForeColor="White" HorizontalAlign="Justify" PagerStyle-Visible="True" Style="border-right: black thin solid; border-top: black thin solid; border-left: black thin solid; border-bottom: black thin solid">
+                        <Columns>
+                            <asp:ButtonColumn ButtonType="PushButton" CommandName="Select" Text="&gt;&gt;"></asp:ButtonColumn>
+                            <asp:BoundColumn DataField="id" HeaderText="S/N" SortExpression="id" Visible="False"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="PaymentDate" DataFormatString="{0:d}" HeaderText="Date" SortExpression="PaymentDate"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="TypePayment" HeaderText="Type" SortExpression="TypePayment"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="Value" HeaderText="Value" SortExpression="Value"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="Note" HeaderText="Note" SortExpression="Note"></asp:BoundColumn>
+                        </Columns>
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" HorizontalAlign="Justify" VerticalAlign="Middle" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" Mode="NumericPages" VerticalAlign="Middle" />
+                        <SelectedItemStyle BackColor="Silver" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="White" />
+                    </asp:DataGrid>
+                </td>
+            </tr>
+            <tr>
                 <td style="text-align: left; vertical-align: top">&nbsp;</td>
                 <td style="text-align: center; vertical-align: top">&nbsp;</td>
                 <td style="vertical-align: top; text-align: left">
@@ -119,15 +169,50 @@
                     <asp:Button ID="btnSave" runat="server" Text="SAVE" />
                     <asp:Button ID="btnUpdate" runat="server" Text="UPDATE" />
                     <asp:Button ID="btnDelete" runat="server" Text="DELETE" />
+                    <asp:Button ID="btnInsert" runat="server" Text="SAVE" />
                 </td>
             </tr>
         </table>
         <script type="text/javascript">
-            var popup;
+            
+            //function openTitle() {
+            //    childWindow = open('Booklist.aspx', 'u_Payment', 'resizable=no,width=800,height=600');
+            //}
 
-            function SelectName() {
-                popup = window.open("BookList.aspx", "Popup", "width=800,height=600");
-                popup.focus();
+            function openAuthor() {
+                childWindow = open('AuthorList.aspx?Type=Author', 'u_Payment', 'resizable=no,width=800,height=600');
+            }
+
+            function openPayTo() {
+                childWindow = open('AuthorList.aspx?Type=Pay', 'u_Payment', 'resizable=no,width=800,height=600');
+            }
+          
+
+            function openContract() {
+                childWindow = open('Contractlist.aspx', 'u_Payment', 'resizable=no,width=1200,height=600');
+            }
+
+          
+            <%--function setValueTitle(myVal, myVal02) {
+                document.getElementById("<%=txtTitle.ClientID%>").value = myVal;
+                document.getElementById("<%=txtISBN.ClientID%>").value = myVal02;
+            }--%>
+
+            function setValueAuthor(myVal, myVal02) {
+                document.getElementById("<%=txtAuthor.ClientID%>").value = myVal;
+                document.getElementById("<%=txtAuthorIC.ClientID%>").value = myVal02;
+            }
+
+            function setValuePay(myVal, myVal02) {
+                document.getElementById("<%=txtPayto.ClientID%>").value = myVal;
+                document.getElementById("<%=txtPaytoIC.ClientID%>").value = myVal02;
+            }
+            
+
+            function setValueContractNo(ContractNo, Title, ISBN) {
+                document.getElementById("<%=txtContractNo.ClientID%>").value = ContractNo;
+                document.getElementById("<%=txtTitle.ClientID%>").value = Title;
+                document.getElementById("<%=txtISBN.ClientID%>").value = ISBN;
             }
         </script>
     </asp:Panel>

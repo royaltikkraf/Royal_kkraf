@@ -4,6 +4,8 @@ Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
 Imports System.Threading
+Imports System.Configuration
+
 
 Public Class u_Payment
     Inherits System.Web.UI.Page
@@ -18,15 +20,20 @@ Public Class u_Payment
         If Not Me.Page.User.Identity.IsAuthenticated Then
             FormsAuthentication.RedirectToLoginPage()
         End If
+
+        Dim ISBN As String = Request.Form("ISBN")
+        Dim Title As String = Request.Form("Title")
+
+
         If Not Page.IsPostBack Then
             ddlPaymentType.DataBind()
-            ddlAuthor.DataBind()
-            ddlPayTo.DataBind()
+
             If SortExp.Text = "" Then
                 LoadGridPayment("", "")
             Else
                 LoadGridPayment(SortExp.Text, "")
             End If
+        Else
 
         End If
 
@@ -104,17 +111,36 @@ Public Class u_Payment
         Return 0
     End Function
 
+    Function LoadGridPaymentDetail() As Boolean
+        Dim dT As DataTable
+        SenaraiPayment.CurrentPageIndex = 0
+        Query = "Select distinct * From [infOthersPaymentDetail] WHERE DocNo='" & lblDocNo.Text & "' Order by PaymentDate DESC "
+        dT = Clss.ExecuteDataTable(Query, "SenaraiPayment")
+        If dT Is Nothing Then
+            lblErrMsg.Text = String.Format("ERROR : Bind Data ({0})!", Clss.oErrMsg)
+        ElseIf Not dT Is Nothing Then
+            lblErrMsg.Text = ""
+            SenaraiPayment.DataSource = dT
+            SenaraiPayment.DataBind()
+            ViewState.Add("SenaraiPayment", dT)
+            dT.Dispose()
+        End If
+        Return 0
+    End Function
+
     Private Sub iBtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles iBtnSearch.Click
         Filter = "WHERE " & ddlFilter.SelectedValue & " like '%" & txtSearch.Text & "%'"
         LoadGridPayment("", Filter)
     End Sub
 
     Protected Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+        btnContract.Visible = True
         PanelDetail.Visible = True
         PanelGrid.Visible = False
         btnCreate.Visible = True
         btnUpdate.Visible = False
         btnDelete.Visible = False
+        btnInsert.Visible = False
         btnSave.Visible = True
         ClearDetailPayment()
     End Sub
@@ -122,9 +148,13 @@ Public Class u_Payment
     Function ClearDetailPayment() As Boolean
         lblDate.Text = Today
         lblDocNo.Text = "NEW"
-        txtContractNo.Text = ""
-        ddlAuthor.DataBind()
-        ddlPayTo.DataBind()
+        txtContractNo.Value = ""
+        txtTitle.Value = ""
+        txtISBN.Value = ""
+        txtAuthor.Value = ""
+        txtAuthorIC.Value = ""
+        txtPayto.Value = ""
+        txtPaytoIC.Value = ""
         ddlPaymentType.DataBind()
         txtAmount.Text = 0
         txtNote.Text = ""
@@ -132,23 +162,51 @@ Public Class u_Payment
     End Function
 
     Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim SQLQuery As String
+        Dim PaymentDate As DateTime = Convert.ToDateTime(txtPaymentDate.Text)
+        Dim TodayDate As DateTime = Convert.ToDateTime(lblDate.Text)
+
+        Dim userId As Integer = 0
         Result = Clss.CheckupDocNo("DOCNO", "PAY", "NEW")
         If Result = True Then
             lblDocNo.Text = Clss.oDocNo
-            SQLQuery = "INSERT INTO infOthersPayment(Date, Author, PayTo, TypePayment, Value, Note, DocNo, ContractNo, AuthorIC, PayToIC, CodePaymentType)VALUES(convert(datetime,'" & _
-                lblDate.Text & "',103), '" & ddlAuthor.SelectedItem.Text & "', '" & ddlPayTo.SelectedItem.Text & "', '" & ddlPaymentType.SelectedItem.Text & "', '" & _
-                txtAmount.Text & "', '" & txtNote.Text & "', '" & lblDocNo.Text & "', '" & txtContractNo.Text & "', '" & ddlAuthor.SelectedValue & "', '" & ddlPayTo.SelectedValue & "', '" & ddlPaymentType.SelectedValue & "'); UPDATE ConfDocControl set Description='" & Clss.oConCurrNumber & "' where SetupName='DOCNO' and itemname='PAY'"
-            Result = Clss.ExecuteNonQuery(SQLQuery)
-            If Result = True Then
-                ShowPopUpMsg("Succes : SAVE Data")
-                LoadGridPayment("", "")
-                PanelDetail.Visible = False
-                PanelGrid.Visible = True
-            Else
-                ShowPopUpMsg("Error : SAVE Data " & Clss.oErrMsg & "")
-            End If
+            Dim constr As String = ConfigurationManager.ConnectionStrings("RoyaltiesConn").ConnectionString
+            Using con As New SqlConnection(constr)
+                Using cmd As New SqlCommand("Insert_OtherPayment")
+                    Using sda As New SqlDataAdapter()
+                        cmd.CommandType = CommandType.StoredProcedure
+                        cmd.Parameters.AddWithValue("@Author", txtAuthor.Value.Trim())
+                        cmd.Parameters.AddWithValue("@PayTo", txtPayto.Value.Trim())
+                        cmd.Parameters.AddWithValue("@Title", txtTitle.Value.Trim())
+                        cmd.Parameters.AddWithValue("@ISBN", txtISBN.Value.Trim())
+                        cmd.Parameters.AddWithValue("@ContractNo", txtContractNo.Value.Trim())
+                        cmd.Parameters.AddWithValue("@PaymentDate", PaymentDate)
+                        cmd.Parameters.AddWithValue("@Value", txtAmount.Text.Trim())
+                        cmd.Parameters.AddWithValue("@TypePayment", ddlPaymentType.SelectedItem.Text.Trim())
+                        cmd.Parameters.AddWithValue("@DocNo", lblDocNo.Text.Trim())
+                        cmd.Parameters.AddWithValue("@Date", TodayDate)
+                        cmd.Parameters.AddWithValue("@Note", txtNote.Text.Trim())
+                        cmd.Parameters.AddWithValue("@AuthorIC", txtAuthorIC.Value.Trim())
+                        cmd.Parameters.AddWithValue("@PayToIC", txtPaytoIC.Value.Trim())
+                        cmd.Parameters.AddWithValue("@CodePaymentType", ddlPaymentType.SelectedValue.Trim())
+                        cmd.Parameters.AddWithValue("@CurNumber", Clss.oConCurrNumber.Trim())
+                        cmd.Connection = con
+                        con.Open()
+                        userId = Convert.ToInt32(cmd.ExecuteScalar())
+                        con.Close()
+                    End Using
+                End Using
+                Select Case userId
+                    Case -1
+                        ShowPopUpMsg("Contract No Already Exists")
+                    Case -2
+                        ShowPopUpMsg("ISBN Already Exists")
+                    Case Else
+                        InsertDetails()
+                        ShowPopUpMsg("SUCCESFUL!")
+                End Select
+            End Using
         End If
+
     End Sub
 
     Private Sub ShowPopUpMsg(msg As String)
@@ -165,11 +223,14 @@ Public Class u_Payment
         code = Senarai.SelectedItem.Cells(1).Text
         Result = LoadDetailGridPayment(code)
         If Result = True Then
+            btnContract.Visible = False
+            btnInsert.Visible = True
             PanelDetail.Visible = True
             btnUpdate.Visible = True
             btnDelete.Visible = True
             PanelGrid.Visible = False
             btnSave.Visible = False
+            LoadGridPaymentDetail()
         Else
             PanelDetail.Visible = False
             btnUpdate.Visible = False
@@ -177,6 +238,7 @@ Public Class u_Payment
             PanelGrid.Visible = True
             btnSave.Visible = True
         End If
+
     End Sub
 
     Function LoadDetailGridPayment(id As Integer) As Boolean
@@ -184,15 +246,20 @@ Public Class u_Payment
         Result = Clss.ExecuteNonQuery_OthersPayment(Query)
         If Result = True Then
             Dim DateDoc As Object
+            Dim PaymentDate As Object
             lblID.Text = Clss.oIDNo
             lblDocNo.Text = Clss.oDocNo
-            ddlAuthor.SelectedValue = Clss.oIC
-            ddlPayTo.SelectedValue = Clss.oPayTo
+            'txtTitle.Value = Clss.oTitle
+            txtISBN.Value = Clss.oISBN
+            txtAuthor.Value = Clss.oName
+            txtAuthorIC.Value = Clss.oIC
+            txtPayto.Value = Clss.oPayTo
+            txtPaytoIC.Value = Clss.oPayToIC
             ddlPaymentType.SelectedValue = Clss.oPaymentType
-            txtContractNo.Text = Clss.oContractNo
-            txtAmount.Text = Clss.oAmount
+            txtContractNo.Value = Clss.oContractNo
+            txtAmount.Text = Convert.ToDouble(Clss.oAmount)
             txtNote.Text = Clss.oNota
-
+            txtPaymentDate.Text = Clss.oDateJoin
             DateDoc = Clss.oDateStart
             If DateDoc Is DBNull.Value Or DateDoc = "" Then
                 lblDate.Text = ""
@@ -204,6 +271,16 @@ Public Class u_Payment
                 End If
             End If
 
+            PaymentDate = Clss.oDateJoin
+            If PaymentDate Is DBNull.Value Or PaymentDate = "" Then
+                PaymentDate.Text = ""
+            Else
+                If PaymentDate = "01/01/1900 12:00:00 AM" Or PaymentDate = "01/01/1900" Then
+                    PaymentDate.Text = ""
+                Else
+                    txtPaymentDate.Text = Convert.ToDateTime(PaymentDate).ToString("dd/MM/yyyy")
+                End If
+            End If
 
             Result = True
         Else
@@ -215,11 +292,12 @@ Public Class u_Payment
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Dim SQLQuery As String
-        SQLQuery = "UPDATE infOthersPayment SET ContractNo='" & txtContractNo.Text & "', Value='" & txtAmount.Text & "', Note='" & txtNote.Text & "' WHERE (id = " & lblID.Text & ")"
+        SQLQuery = "UPDATE infOthersPayment SET TypePayment='" & ddlPaymentType.SelectedItem.Text & "', CodePaymentType='" & ddlPaymentType.SelectedValue & "', Value='" & txtAmount.Text & "', Note='" & txtNote.Text & "' WHERE (id = " & lblID.Text & ")"
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = True Then
             ShowPopUpMsg("Succes : UPDATE Data")
             LoadGridPayment("", "")
+            LoadGridPaymentDetail()
             PanelDetail.Visible = False
             PanelGrid.Visible = True
         Else
@@ -229,7 +307,7 @@ Public Class u_Payment
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Dim SQLQuery As String
-        SQLQuery = "DELETE From infOthersPayment WHERE ID =" & lblID.Text & ""
+        SQLQuery = "DELETE From infOthersPayment WHERE ID =" & lblID.Text & "; DELETE FROM infOthersPaymentDetail WHERE DocNo ='" & lblDocNo.Text & "'"
         Result = Clss.ExecuteNonQuery(SQLQuery)
         If Result = True Then
             ShowPopUpMsg("Succes : DELETE Data")
@@ -250,4 +328,43 @@ Public Class u_Payment
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ClearDetailPayment()
     End Sub
+
+    Private Sub InsertDetails()
+        Dim PaymentDate As DateTime = Convert.ToDateTime(txtPaymentDate.Text)
+        Dim TodayDate As DateTime = Convert.ToDateTime(lblDate.Text)
+
+        Dim constr As String = ConfigurationManager.ConnectionStrings("RoyaltiesConn").ConnectionString
+        Using con As New SqlConnection(constr)
+            Using cmd As New SqlCommand("Insert_OtherPaymentDetail")
+                Using sda As New SqlDataAdapter()
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("@Author", txtAuthor.Value.Trim())
+                    cmd.Parameters.AddWithValue("@PayTo", txtPayto.Value.Trim())
+                    cmd.Parameters.AddWithValue("@Title", txtTitle.Value.Trim())
+                    cmd.Parameters.AddWithValue("@ISBN", txtISBN.Value.Trim())
+                    cmd.Parameters.AddWithValue("@ContractNo", txtContractNo.Value.Trim())
+                    cmd.Parameters.AddWithValue("@PaymentDate", PaymentDate)
+                    cmd.Parameters.AddWithValue("@Value", txtAmount.Text.Trim())
+                    cmd.Parameters.AddWithValue("@TypePayment", ddlPaymentType.SelectedItem.Text.Trim())
+                    cmd.Parameters.AddWithValue("@DocNo", lblDocNo.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Date", TodayDate)
+                    cmd.Parameters.AddWithValue("@Note", txtNote.Text.Trim())
+                    cmd.Parameters.AddWithValue("@AuthorIC", txtAuthorIC.Value.Trim())
+                    cmd.Parameters.AddWithValue("@PayToIC", txtPaytoIC.Value.Trim())
+                    cmd.Parameters.AddWithValue("@CodePaymentType", ddlPaymentType.SelectedValue.Trim())
+                    cmd.Connection = con
+                    con.Open()
+                    cmd.ExecuteScalar()
+                    con.Close()
+                    ShowPopUpMsg("SUCCESFUL!")
+                    LoadGridPaymentDetail()
+                End Using
+            End Using
+        End Using
+    End Sub
+
+    Private Sub btnInsert_Click(sender As Object, e As EventArgs) Handles btnInsert.Click
+        InsertDetails()
+    End Sub
+
 End Class

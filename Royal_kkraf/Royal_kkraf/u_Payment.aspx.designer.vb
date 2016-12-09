@@ -131,13 +131,40 @@ Partial Public Class u_Payment
     Protected WithEvents lblDocNo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''txtPaymentDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPaymentDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtPaymentDate_CalendarExtender control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPaymentDate_CalendarExtender As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
     '''txtContractNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtContractNo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtContractNo As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''btnContract control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnContract As Global.System.Web.UI.HtmlControls.HtmlButton
 
     '''<summary>
     '''txtTitle control.
@@ -146,7 +173,7 @@ Partial Public Class u_Payment
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTitle As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
     '''txtISBN control.
@@ -155,25 +182,61 @@ Partial Public Class u_Payment
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtISBN As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtISBN As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
-    '''ddlAuthor control.
+    '''txtAuthor control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlAuthor As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtAuthor As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
-    '''ddlPayTo control.
+    '''btnAuthor control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlPayTo As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents btnAuthor As Global.System.Web.UI.HtmlControls.HtmlButton
+
+    '''<summary>
+    '''txtAuthorIC control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAuthorIC As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''txtPayto control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPayto As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''btnPayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPayTo As Global.System.Web.UI.HtmlControls.HtmlButton
+
+    '''<summary>
+    '''txtPaytoIC control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPaytoIC As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
     '''ddlPaymentType control.
@@ -221,6 +284,15 @@ Partial Public Class u_Payment
     Protected WithEvents PaymentType As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
+    '''SenaraiPayment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SenaraiPayment As Global.System.Web.UI.WebControls.DataGrid
+
+    '''<summary>
     '''btnCancel control.
     '''</summary>
     '''<remarks>
@@ -264,4 +336,13 @@ Partial Public Class u_Payment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnInsert control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnInsert As Global.System.Web.UI.WebControls.Button
 End Class

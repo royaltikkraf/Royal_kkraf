@@ -39,7 +39,7 @@
                         <td>:</td>
                         <td>
                             <input type="text" id="txtTitle" name="title" readonly="readonly" runat="server" />
-                            <input type="button" value="Select Title" id="btnSearch" runat="server" onclick="SelectName()" />
+                            <input type="button" value="Select Title" id="btnSearch" runat="server" onclick="openTitle()" />
                         </td>
                     </tr>
                     <tr>
@@ -184,11 +184,21 @@
 </body>
 
 <script type="text/javascript">
-    var popup;
+    //var popup;
 
-    function SelectName() {
-        popup = window.open("BookList.aspx", "Popup", "width=800,height=600");
-        popup.focus();
+    //function SelectName() {
+    //    popup = window.open("BookList.aspx", "Popup", "width=800,height=600");
+    //    popup.focus();
+    //}
+
+
+    function openTitle() {
+        childWindow = open('Booklist.aspx', 'u_ContractNewUpdate', 'resizable=no,width=800,height=600');
+    }
+
+    function setValueTitle(myVal, myVal02) {
+        document.getElementById('txtTitle').value = myVal;
+        document.getElementById('txtISBN').value = myVal02;
     }
 </script>
 </html>
