@@ -140,6 +140,15 @@ Partial Public Class u_Payment
     Protected WithEvents txtPaymentDate As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''RequiredFieldValidator1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''txtPaymentDate_CalendarExtender control.
     '''</summary>
     '''<remarks>
@@ -156,6 +165,15 @@ Partial Public Class u_Payment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtContractNo As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''RequiredFieldValidator2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''btnContract control.
@@ -194,6 +212,15 @@ Partial Public Class u_Payment
     Protected WithEvents txtAuthor As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
+    '''RequiredFieldValidator3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator3 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''btnAuthor control.
     '''</summary>
     '''<remarks>
@@ -221,15 +248,6 @@ Partial Public Class u_Payment
     Protected WithEvents txtPayto As Global.System.Web.UI.HtmlControls.HtmlInputText
 
     '''<summary>
-    '''btnPayTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnPayTo As Global.System.Web.UI.HtmlControls.HtmlButton
-
-    '''<summary>
     '''txtPaytoIC control.
     '''</summary>
     '''<remarks>
@@ -255,6 +273,15 @@ Partial Public Class u_Payment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtAmount As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''RequiredFieldValidator4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator4 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''txtNote control.
@@ -293,6 +320,15 @@ Partial Public Class u_Payment
     Protected WithEvents SenaraiPayment As Global.System.Web.UI.WebControls.DataGrid
 
     '''<summary>
+    '''ValidationSummary1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ValidationSummary1 As Global.System.Web.UI.WebControls.ValidationSummary
+
+    '''<summary>
     '''btnCancel control.
     '''</summary>
     '''<remarks>
@@ -318,15 +354,6 @@ Partial Public Class u_Payment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnUpdate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''btnDelete control.

@@ -60,7 +60,11 @@
                                 <li><a runat="server" href="~/u_Author">Author/Agency/Benefeciary</a></li>
                                 <li><a runat="server" href="~/u_Contract">Contract</a></li>
                                 <li><a runat="server" href="~/u_Product">Item</a></li>
-                                <li><a runat="server" href="~/u_Payment">Other Payment</a></li>
+                                <li><a runat="server" href="#">Payment</a></li>
+                                <ul class="dropdown">
+                                    <li><a runat="server" href="~/u_Payment">Advance Payment</a></li>
+                                    <li><a runat="server" href="~/u_PaymentOthers">Adjusment Payment</a></li>
+                                </ul>
                                 <li><a runat="server" href="~/u_Sales">Sales</a></li>
 
                             </ul>

@@ -188,6 +188,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="AuthorContList.aspx" />
     <Content Include="AuthorList.aspx" />
     <Content Include="BookList.aspx" />
     <Content Include="Contact.aspx" />
@@ -243,6 +244,7 @@
     <Content Include="u_Contract.aspx" />
     <Content Include="u_ContractNewUpdate.aspx" />
     <Content Include="u_Payment.aspx" />
+    <Content Include="u_PaymentOthers.aspx" />
     <Content Include="u_Product.aspx" />
     <Content Include="u_Sales.aspx" />
     <Content Include="VB_Activation.aspx" />
@@ -333,6 +335,13 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="App_Start\Startup.Auth.vb" />
+    <Compile Include="AuthorContList.aspx.designer.vb">
+      <DependentUpon>AuthorContList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorContList.aspx.vb">
+      <DependentUpon>AuthorContList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="AuthorList.aspx.designer.vb">
       <DependentUpon>AuthorList.aspx</DependentUpon>
     </Compile>
@@ -427,6 +436,13 @@
     <Compile Include="u_Payment.aspx.vb">
       <DependentUpon>u_Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="u_PaymentOthers.aspx.designer.vb">
+      <DependentUpon>u_PaymentOthers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="u_PaymentOthers.aspx.vb">
+      <DependentUpon>u_PaymentOthers.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="u_Product.aspx.designer.vb">
       <DependentUpon>u_Product.aspx</DependentUpon>

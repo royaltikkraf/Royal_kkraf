@@ -43,6 +43,7 @@
                 <td style="vertical-align: top; text-align: center">:</td>
                 <td style="text-align: left; vertical-align: top">
                     <asp:TextBox ID="txtItemCode" runat="server" Width="80px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtItemCode" ErrorMessage="Item Code" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -50,6 +51,7 @@
                 <td style="vertical-align: top; text-align: center">:</td>
                 <td style="text-align: left; vertical-align: top">
                     <asp:TextBox ID="txtTitle" runat="server" Width="400px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTitle" ErrorMessage="Title" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -57,6 +59,7 @@
                 <td style="vertical-align: top; text-align: center">:</td>
                 <td style="text-align: left; vertical-align: top">
                     <asp:TextBox ID="txtISBN" runat="server" Width="150px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtISBN" ErrorMessage="ISBN" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -154,6 +157,7 @@
                 <td style="vertical-align: top; text-align: center">:</td>
                 <td style="text-align: left; vertical-align: top">
                     <asp:TextBox ID="txtBarcode" runat="server" Width="200px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtBarcode" ErrorMessage="Barcode" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>

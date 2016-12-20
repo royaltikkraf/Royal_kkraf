@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Others Payment" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Payment.aspx.vb" Inherits="Royal_kkraf.u_Payment" %>
+﻿<%@ Page Title="Advance Payment" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="u_Payment.aspx.vb" Inherits="Royal_kkraf.u_Payment" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
@@ -56,6 +56,7 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <asp:TextBox ID="txtPaymentDate" runat="server" Width="400px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPaymentDate" ErrorMessage="Payment Date" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <ajaxToolkit:CalendarExtender ID="txtPaymentDate_CalendarExtender" runat="server" BehaviorID="txtPaymentDate_CalendarExtender" Format="dd/MM/yyyy" TargetControlID="txtPaymentDate">
                     </ajaxToolkit:CalendarExtender>
                 </td>
@@ -65,6 +66,7 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <input id="txtContractNo" type="text" readonly="readonly" name="ContractNo" runat="server" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtContractNo" ErrorMessage="Contract No" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <button id="btnContract" runat="server" onclick="openContract()">
                         Contract
                     </button>
@@ -89,7 +91,8 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <input id="txtAuthor" type="text" readonly="readonly" name="Author" runat="server" />
-                     <button id="btnAuthor" runat="server" onclick="openContract()">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtAuthor" ErrorMessage="Author" ForeColor="Red">*</asp:RequiredFieldValidator>
+                    <button id="btnAuthor" runat="server" onclick="openAuthor()">
                         Author
                     </button>
                 </td>
@@ -106,9 +109,6 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <input id="txtPayto" type="text" readonly="readonly" name="PayTo" runat="server" />
-                     <button id="btnPayTo" runat="server" onclick="openContract()">
-                        Pay To
-                    </button>
                 </td>
             </tr>
             <tr>
@@ -131,6 +131,7 @@
                 <td style="text-align: center; vertical-align: top">:</td>
                 <td style="vertical-align: top; text-align: left">
                     <asp:TextBox ID="txtAmount" runat="server" Width="400px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAmount" ErrorMessage="Amount" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -139,7 +140,11 @@
                 <td style="vertical-align: top; text-align: left">
                     <asp:TextBox ID="txtNote" runat="server" Height="100px" TextMode="MultiLine" Width="285px"></asp:TextBox>
                     <asp:SqlDataSource ID="AuthorList" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT DISTINCT [name], [IC] FROM [infAuthor] ORDER BY [name]"></asp:SqlDataSource>
-                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT Name, [Desc] FROM ConfPaymentType ORDER BY [Desc]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="PaymentType" runat="server" ConnectionString="<%$ ConnectionStrings:RoyaltiesConn %>" SelectCommand="SELECT Name, [Desc] FROM ConfPaymentType WHERE Class =@Class ORDER BY [Desc]">
+                        <SelectParameters>
+                            <asp:Parameter DefaultValue="1" Name="Class" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
                 </td>
             </tr>
             <tr>
@@ -164,50 +169,37 @@
                 <td style="text-align: left; vertical-align: top">&nbsp;</td>
                 <td style="text-align: center; vertical-align: top">&nbsp;</td>
                 <td style="vertical-align: top; text-align: left">
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" />
                     <asp:Button ID="btnCancel" runat="server" Text="CANCEL" />
                     <asp:Button ID="btnClear" runat="server" Text="CLEAR" />
                     <asp:Button ID="btnSave" runat="server" Text="SAVE" />
-                    <asp:Button ID="btnUpdate" runat="server" Text="UPDATE" />
                     <asp:Button ID="btnDelete" runat="server" Text="DELETE" />
                     <asp:Button ID="btnInsert" runat="server" Text="SAVE" />
                 </td>
             </tr>
         </table>
         <script type="text/javascript">
-            
+
             //function openTitle() {
             //    childWindow = open('Booklist.aspx', 'u_Payment', 'resizable=no,width=800,height=600');
             //}
 
             function openAuthor() {
-                childWindow = open('AuthorList.aspx?Type=Author', 'u_Payment', 'resizable=no,width=800,height=600');
+                childWindow = open('AuthorContList.aspx?Type=Author&Cont=' + document.getElementById("<%=txtContractNo.ClientID%>").value, 'u_Payment', 'resizable=no,width=800,height=600');
             }
-
-            function openPayTo() {
-                childWindow = open('AuthorList.aspx?Type=Pay', 'u_Payment', 'resizable=no,width=800,height=600');
-            }
-          
 
             function openContract() {
                 childWindow = open('Contractlist.aspx', 'u_Payment', 'resizable=no,width=1200,height=600');
             }
 
-          
-            <%--function setValueTitle(myVal, myVal02) {
-                document.getElementById("<%=txtTitle.ClientID%>").value = myVal;
-                document.getElementById("<%=txtISBN.ClientID%>").value = myVal02;
-            }--%>
-
-            function setValueAuthor(myVal, myVal02) {
+            function setValueAuthor(myVal, myVal02, myVal03, myVal04) {
                 document.getElementById("<%=txtAuthor.ClientID%>").value = myVal;
                 document.getElementById("<%=txtAuthorIC.ClientID%>").value = myVal02;
+                document.getElementById("<%=txtPayto.ClientID%>").value = myVal03;
+                document.getElementById("<%=txtPaytoIC.ClientID%>").value = myVal04;
             }
 
-            function setValuePay(myVal, myVal02) {
-                document.getElementById("<%=txtPayto.ClientID%>").value = myVal;
-                document.getElementById("<%=txtPaytoIC.ClientID%>").value = myVal02;
-            }
-            
+
 
             function setValueContractNo(ContractNo, Title, ISBN) {
                 document.getElementById("<%=txtContractNo.ClientID%>").value = ContractNo;

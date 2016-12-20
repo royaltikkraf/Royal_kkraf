@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <h2><%: Title %></h2>   
+    <h2><%: Title %></h2>   
     <asp:Panel ID="PanelGrid" runat="server">
         <asp:Label ID="SortExp" runat="server"></asp:Label>
         <asp:Label ID="lblErrMsg" runat="server"></asp:Label>
@@ -44,6 +44,7 @@
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
                     <asp:TextBox ID="txtSalesDate" runat="server" Width="80px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtSalesDate" ErrorMessage="Sales Date" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <cc1:CalendarExtender ID="txtSalesDate_CalendarExtender" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtSalesDate">
                     </cc1:CalendarExtender>
                 </td>
@@ -53,6 +54,7 @@
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
                     <asp:TextBox ID="txtInvoiceNo" runat="server" Width="400px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtInvoiceNo" ErrorMessage="Invoice No" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -74,7 +76,8 @@
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
                     <asp:TextBox ID="txtTitle" runat="server" Width="300px"></asp:TextBox>
-                    <asp:ImageButton ID="iBtnSearchTitle" runat="server" ImageAlign="Top" ImageUrl="~/image/search.png" Width="28px" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtTitle" ErrorMessage="Title" ForeColor="Red">*</asp:RequiredFieldValidator>
+                    <asp:ImageButton ID="iBtnSearchTitle" runat="server" ImageAlign="Top" ImageUrl="~/image/search.png" Width="28px" CausesValidation="False" />
                 </td>
             </tr>
             <tr>
@@ -107,6 +110,7 @@
                 <td style="vertical-align: top; text-align: left">:</td>
                 <td>
                     <asp:TextBox ID="txtQty" runat="server" Width="80px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtQty" ErrorMessage="Qty" ForeColor="Red">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>

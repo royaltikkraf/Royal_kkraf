@@ -519,6 +519,7 @@ Public Class Clss
     Dim ContractNo As String
     Dim Nota As String
     Dim Amount As String
+    Dim LoanNo As String
 
 
     Public Property oDateStart() As String
@@ -572,6 +573,15 @@ Public Class Clss
         End Get
         Set(ByVal value As String)
             Amount = value
+        End Set
+    End Property
+
+    Public Property oLoanNo() As String
+        Get
+            oLoanNo = LoanNo
+        End Get
+        Set(ByVal value As String)
+            LoanNo = value
         End Set
     End Property
 
@@ -777,6 +787,7 @@ Public Class Clss
             dr = comm.ExecuteReader()
             If dr.Read Then
                 ContractNo = dr("ContractNo").ToString
+                Title = dr("Title").ToString
                 ISBN = dr("ISBN").ToString
                 Name = dr("Author").ToString
                 IC = dr("AuthorIC").ToString
@@ -789,6 +800,8 @@ Public Class Clss
                 Nota = dr("Note").ToString
                 PaymentType = dr("CodePaymentType").ToString
                 Amount = dr("Value").ToString
+                InvoiceNo = dr("InvoiceNo").ToString
+                LoanNo = dr("LoanNo").ToString
                 If dr("id").ToString Is DBNull.Value Or dr("id").ToString = "" Then
                     IDNo = 0
                 Else
@@ -802,7 +815,7 @@ Public Class Clss
             ErrMsg = ex.Message
             result = False
         End Try
-        'dr.Close()
+        dr.Close()
         Return result
     End Function
 

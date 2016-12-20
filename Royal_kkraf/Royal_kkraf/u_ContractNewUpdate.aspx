@@ -39,7 +39,8 @@
                         <td>:</td>
                         <td>
                             <input type="text" id="txtTitle" name="title" readonly="readonly" runat="server" />
-                            <input type="button" value="Select Title" id="btnSearch" runat="server" onclick="openTitle()" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtTitle" ErrorMessage="Title" ForeColor="Red">*</asp:RequiredFieldValidator>
+                            &nbsp;<input type="button" value="Select Title" id="btnSearch" runat="server" onclick="openTitle()" />
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +48,8 @@
                         <td>:</td>
                         <td>
                             <input type="text" id="txtISBN" name="isbn" readonly="readonly" runat="server" />
-                        </td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtISBN" ErrorMessage="ISBN" ForeColor="Red">*</asp:RequiredFieldValidator>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td>Contract Date</td>
@@ -56,6 +58,7 @@
                             <asp:TextBox ID="txtContractDate" runat="server" Width="80px"></asp:TextBox>
                             <cc1:CalendarExtender ID="txtContractDate_CalendarExtender" runat="server" BehaviorID="txtContractDate_CalendarExtender" TargetControlID="txtContractDate" Format="dd/MM/yyyy">
                             </cc1:CalendarExtender>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtContractDate" ErrorMessage="Contract Date" ForeColor="Red">*</asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -65,6 +68,7 @@
                             <asp:TextBox ID="txtStartDate" runat="server" Width="80px"></asp:TextBox>
                             <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" BehaviorID="txtStartDate_CalendarExtender" TargetControlID="txtStartDate" Format="dd/MM/yyyy">
                             </cc1:CalendarExtender>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtStartDate" ErrorMessage="Start Date" ForeColor="Red">*</asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -74,20 +78,23 @@
                             <asp:TextBox ID="txtEndDate" runat="server" Width="80px"></asp:TextBox>
                             <cc1:CalendarExtender ID="txtEndDate_CalendarExtender" runat="server" BehaviorID="txtEndDate_CalendarExtender" TargetControlID="txtEndDate" Format="dd/MM/yyyy">
                             </cc1:CalendarExtender>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEndDate" ErrorMessage="End Date" ForeColor="Red">*</asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
-                        <td>Book</td>
+                        <td>Book (%)</td>
                         <td>:</td>
                         <td>
                             <asp:TextBox ID="txtBook" runat="server" Width="80px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txteBook" ErrorMessage="Book" ForeColor="Red">*</asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
-                        <td>eBook</td>
+                        <td>eBook (%)</td>
                         <td>:</td>
                         <td>
                             <asp:TextBox ID="txteBook" runat="server" Width="80px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txteBook" ErrorMessage="eBook" ForeColor="Red">*</asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -168,6 +175,7 @@
                     </tr>
                     <tr>
                         <td>
+                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" />
                             <asp:Button ID="btnCancel" runat="server" CausesValidation="False" Text="Cancel" />
                             <asp:Button ID="btnSave" runat="server" Text="Save" />
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" />
